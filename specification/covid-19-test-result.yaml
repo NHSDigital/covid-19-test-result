@@ -1,19 +1,17 @@
 openapi: "3.0.0"
 x-nhs-api-spec-guid: "4f81482e-9987-4b7f-9d48-9aa6e59f9742"
-meta:
-  service_name: "covid-19-test-result"
-  short_service_name: "c19tr"
-  product_display_name: "COVID-19 Test Result API"
-  service_base_path: "covid-19-test-result"
-  product_description: "This API will return a list of antibody and antigen (PCR and LFT) COVID-19 test results for a given citizen based on NHS number and optionally verified by additional demographic data."
-  pipeline_name_prefix: "COVID-19-Test-Result"
 info:
   version: 1.0.0
   title: Generated Template API
   license:
     name: MIT
+  contact:
+    email: api.management@nhs.net
+tags:
+  - name: api
+  - name: example
 servers:
-  - url: http://petstore.swagger.io/
+  - url: http://petstore.swagger.io
 paths:
   /pets:
     get:
