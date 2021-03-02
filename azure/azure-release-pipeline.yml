@@ -12,7 +12,7 @@ resources:
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
-    source: "COVID-19-Test-Result-Build"
+    source: "COVID19-Test-Result-Build"
     trigger:
       branches:
         include:
