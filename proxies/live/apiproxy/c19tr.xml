@@ -1,4 +1,3 @@
 <APIProxy name="c19tr">
-  <!-- This is the root of the application -->
   <Description>Proxy to COVID-19 Test Result API endpoints.</Description>
 </APIProxy>
