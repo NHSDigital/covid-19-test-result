@@ -1,11 +1,10 @@
-FROM node:12
+FROM python:3
 
-COPY . /sandbox
+ADD . /app
+WORKDIR /app
 
-WORKDIR /sandbox
-
-RUN npm install
+RUN pip install --upgrade pip setuptools poetry && \
+  poetry install
 
 EXPOSE 9000
-
-CMD ["npm", "start"]
+CMD poetry run flask run --host=0.0.0.0 --port=9000
