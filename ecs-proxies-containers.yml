@@ -1,4 +1,4 @@
 docker_containers:
-  - name: c19tr
+  - name: sandbox
     dockerfile: "sandbox/Dockerfile"
     path: "sandbox"

@@ -1,6 +1,6 @@
 docker_service:
-  - name: c19tr-sandbox
+  - name: sandbox
     expose: true
     health_check:
       matcher: "200"
-      path: "/pets"
+      path: "/"
