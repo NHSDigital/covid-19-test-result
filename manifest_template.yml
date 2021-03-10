@@ -27,7 +27,7 @@ meta:
   schema_version: 1.1
 apigee:
   environments:
-{% raw %}{% for ENV in APIGEE_ENVIRONMENTS %}
+{% for ENV in APIGEE_ENVIRONMENTS %}
 {% set TITLE = PRODUCT_DISPLAY_NAME + '(' + ENV.display_name + ' Environment)' %}
 {% set NAME = SERVICE_NAME + '-' + ENV.name %}
   - name: {{ ENV.name }}
@@ -62,4 +62,4 @@ apigee:
         title: {{ TITLE }}
         visibility: false
         specId: {{ NAME }}
-{% endfor %}{% endraw %}
+{% endfor %}
