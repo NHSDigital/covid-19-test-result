@@ -1,0 +1,65 @@
+SERVICE_NAME: covid-19-test-result
+PRODUCT_DISPLAY_NAME: COVID-19 Test Result API
+DESCRIPTION: This API will return a list of antibody and antigen (PCR and LFT) COVID-19 test results for a given citizen based on NHS number and optionally verified by additional demographic data.
+APIGEE_ENVIRONMENTS:
+  - name: internal-dev
+    display_name: Internal Development
+  - name: internal-dev-sandbox
+    display_name: Internal Development Sandbox
+  - name: internal-qa
+    display_name: Internal QA
+  - name: internal-qa-sandbox
+    display_name: Internal QA Sandbox
+  - name: ref
+    display_name: Reference
+  - name: sandbox
+    display_name: Sandbox
+# Enable int environment when ready by uncommenting:
+#   - name: int
+#     display_name: Integration Testing
+---
+meta:
+  api:
+    name: covid-19-test-result
+    guid: 57ff6a03-cf4e-4ea1-9834-60294e7691e5
+    spec_guids:
+      - bb24463f-9f34-4c78-9f49-088cb3b9d7b4
+  schema_version: 1.1
+apigee:
+  environments:
+{% raw %}{% for ENV in APIGEE_ENVIRONMENTS %}
+{% set TITLE = PRODUCT_DISPLAY_NAME + '(' + ENV.display_name + ' Environment)' %}
+{% set NAME = SERVICE_NAME + '-' + ENV.name %}
+  - name: {{ ENV.name }}
+    products:
+      - name: {{ NAME }}
+        approvalType: auto
+        attributes:
+          - name: access
+            value: public
+          - name: ratelimit
+            value: 5ps
+        description: {{ DESCRIPTION }}
+        displayName: {{ TITLE }}
+        environments: [ {{ ENV.name }} ]
+        proxies:
+          - {{ SERVICE_NAME }}-{{ ENV.name }}
+          - identity-service-{{ ENV.name }}
+        scopes:
+          - 'urn:nhsd:apim:app:level3:{{ SERVICE_NAME }}'
+          - 'urn:nhsd:apim:user-nhs-id:aal3:{{ SERVICE_NAME }}'
+        quota: '300'
+        quotaInterval: '1'
+        quotaTimeUnit: minute
+    specs:
+      - name: {{ NAME }}
+        path: {{ SERVICE_NAME }}.json
+    api_catalog:
+      - edgeAPIProductName: {{ NAME }}
+        anonAllowed: true
+        description: {{ DESCRIPTION }}
+        requireCallbackUrl: false
+        title: {{ TITLE }}
+        visibility: false
+        specId: {{ NAME }}
+{% endfor %}{% endraw %}
