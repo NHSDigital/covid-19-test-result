@@ -1,5 +1,5 @@
 openapi: "3.0.0"
-x-nhs-api-spec-guid: "4f81482e-9987-4b7f-9d48-9aa6e59f9742"
+x-nhs-api-spec-guid: "bb24463f-9f34-4c78-9f49-088cb3b9d7b4"
 info:
   version: 1.0.0
   title: Generated Template API
