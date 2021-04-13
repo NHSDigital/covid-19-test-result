@@ -14,5 +14,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 9000
 CMD [ "node", "src/mock-api.js" ]

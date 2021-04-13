@@ -24,6 +24,6 @@ To test it:
 
 ```bash
 curl -i localhost:{​​​​​​port}​​​​​​/_ping
-curl -i localhost:{​​​​​​port}​​​​​​/_status 
+curl -i localhost:{​​​​​​port}​​​​​​/_status
 curl -i 'localhost:{​​​​​​port}​​​​​​/observartion?patient=123'
 ```
