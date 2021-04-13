@@ -1,6 +1,11 @@
 <TargetEndpoint name="apim">
   <FaultRules/>
   <HTTPTargetConnection>
-    {{ HOSTED_TARGET_CONNECTION }}
+    <!-- {{ HOSTED_TARGET_CONNECTION }} -->
+    <URL>https://5r6ac8kn46.execute-api.eu-west-2.amazonaws.com/test</URL>
+    <Properties>
+      <Property name="supports.http10">true</Property>
+      <Property name="request.retain.headers">User-Agent,Referer,Accept-Language</Property>
+    </Properties>
   </HTTPTargetConnection>
 </TargetEndpoint>
