@@ -1,10 +1,18 @@
-FROM python:3
+FROM node:14
 
-ADD . /app
-WORKDIR /app
+# Create app directory
 
-RUN pip install --upgrade pip setuptools poetry && \
-  poetry install
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-EXPOSE 9000
-CMD poetry run flask run --host=0.0.0.0 --port=9000
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "src/mock-api.js" ]
