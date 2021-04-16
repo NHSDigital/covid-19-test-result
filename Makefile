@@ -14,6 +14,7 @@ install-hooks:
 
 lint:
 	npm run lint
+	npm run smoke-test
 	poetry run flake8 **/*.py
 
 clean:
