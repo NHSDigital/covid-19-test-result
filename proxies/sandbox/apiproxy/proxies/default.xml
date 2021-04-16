@@ -1,5 +1,21 @@
 <ProxyEndpoint name="default">
     <Flows>
+      <Flow name="jwsPrivateKey">
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>AssignMessage.JWSPrivateKey</Name>
+                </Step>
+            </Response>
+      </Flow>
+      <Flow name="jwsVerifyHS256">
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>VerifyJWS.JWSVerifyHS256</Name>
+                </Step>
+            </Response>
+      </Flow>
       <Flow name="OptionsPreFlight">
             <Request/>
             <Response>
