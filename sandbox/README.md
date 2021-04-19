@@ -5,9 +5,9 @@ Build an image:
 docker build -t {stage-name}/mock-api .
 ```
 
-Run the image with publishing the 8080 port as 49160 out of docker container:
+Run the image with publishing the 9000 port as 49160 out of docker container:
 ```
-docker run -p {port}:8080 -d {stage-name}/mock-api
+docker run -p {port}:9000 -d {stage-name}/mock-api
 ```
 
 To list container:
