@@ -27,6 +27,22 @@
       </Step>
     </Request>
   </PreFlow>
+  <Flows>
+    <Flow name="AccessTokenVerification">
+      <Condition>(proxy.pathsuffix MatchesPath "/$process-message")</Condition>
+      <Request>
+        <Step>
+          <Name>RaiseFault.MethodNotAllowed</Name>
+          <Condition>request.verb != "POST"</Condition>
+        </Step>
+        <Step>
+          <Name>VerifyAccessToken</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+  </Flows>
+
   <HTTPTargetConnection>
     <URL>http://mocktarget.apigee.net</URL>
     <Properties>
