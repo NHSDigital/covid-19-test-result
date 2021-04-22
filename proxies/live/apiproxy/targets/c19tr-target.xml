@@ -13,8 +13,7 @@
   <PreFlow>
     <Request>
       <Step>
-        <Name>VerifyApiKey.XApiKey</Name>
-        <Condition>(proxy.pathsuffix MatchesPath "/_status") and (request.verb = "GET")</Condition>
+        <Name>OauthV2.VerifyAccessToken</Name>
       </Step>
       <Step>
         <Name>AssignMessage.RenameQuotaVarsFromVerifyAPIKeyPolicyClientId</Name>
