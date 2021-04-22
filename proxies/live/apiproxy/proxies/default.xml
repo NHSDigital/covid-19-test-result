@@ -24,9 +24,9 @@
 <!--        <Step>-->
 <!--          <Name>AssignMessage.AddApigeeClientIdHeader</Name>-->
 <!--        </Step>-->
-        <Step>
-          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
-        </Step>
+<!--        <Step>-->
+<!--          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>-->
+<!--        </Step>-->
         <Step>
           <Name>AssignMessage.AddDeveloperAppNameHeader</Name>
         </Step>
