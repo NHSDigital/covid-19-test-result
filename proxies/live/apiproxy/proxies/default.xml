@@ -18,9 +18,9 @@
         <Step>
           <Name>AssignMessage.AddAccessTokenIdHeader</Name>
         </Step>
-        <Step>
-          <Name>AssignMessage.AddApigeeClientIdHeader</Name>
-        </Step>
+<!--        <Step>-->
+<!--          <Name>AssignMessage.AddApigeeClientIdHeader</Name>-->
+<!--        </Step>-->
         <Step>
           <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
         </Step>
