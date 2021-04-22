@@ -21,9 +21,9 @@
         <Step>
           <Name>AssignMessage.AddAccessTokenIdSubjectHeader</Name>
         </Step>
-        <Step>
-          <Name>AssignMessage.AddApigeeClientIdHeader</Name>
-        </Step>
+<!--        <Step>-->
+<!--          <Name>AssignMessage.AddApigeeClientIdHeader</Name>-->
+<!--        </Step>-->
         <Step>
           <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
         </Step>
