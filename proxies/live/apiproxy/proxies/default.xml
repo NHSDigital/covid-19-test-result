@@ -13,6 +13,40 @@
     <Response/>
   </PreFlow>
   <Flows>
+    <Flow name="jwsVerifyHS256">
+      <Request/>
+      <Response>
+        <Step>
+          <Name>VerifyJWS.JWSVerifyHS256</Name>
+        </Step>
+      </Response>
+    </Flow>
+    <Flow name="mapApigeeParametersIntoHeader">
+      <Request>
+        <Step>
+          <Name>AssignMessage.AddAccessTokenIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddAccessTokenIdSubjectHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddApigeeClientIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddDeveloperAppNameHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddNhsdCorrelationIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddProxyClientIpHeader</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
     <Flow name="OptionsPreFlight">
       <Request/>
       <Response>
