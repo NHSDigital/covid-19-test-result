@@ -13,14 +13,6 @@
     <Response/>
   </PreFlow>
   <Flows>
-    <Flow name="jwsVerifyHS256">
-      <Request/>
-      <Response>
-        <Step>
-          <Name>VerifyJWS.JWSVerifyHS256</Name>
-        </Step>
-      </Response>
-    </Flow>
     <Flow name="mapApigeeParametersIntoHeader">
       <Request>
         <Step>
