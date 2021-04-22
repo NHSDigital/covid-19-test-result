@@ -2,7 +2,7 @@
 <AssignMessage async="false" continueOnError="false" enabled="true" name="AssignMessage.AddDeveloperAppIdHeader">
   <Add>
     <Headers>
-      <Header name="Developer-App-ID">{developer.app.id}</Header>
+      <Header name="Developer-App-ID">{developer.id}</Header>
     </Headers>
   </Add>
   <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
