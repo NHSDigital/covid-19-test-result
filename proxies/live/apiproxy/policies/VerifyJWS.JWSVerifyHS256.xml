@@ -1,9 +1,0 @@
-<VerifyJWS name="VerifyJWS.JWSVerifyHS256">
-  <DisplayName>JWS Verify HS256</DisplayName>
-  <Algorithm>HS256</Algorithm>
-  <Source>request.header.authorization</Source>
-  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
-  <SecretKey>
-    <Value ref="private.secretkey"/>
-  </SecretKey>
-</VerifyJWS>
