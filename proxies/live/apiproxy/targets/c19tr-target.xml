@@ -27,7 +27,6 @@
       </Step>
     </Request>
   </PreFlow>
-
   <HTTPTargetConnection>
     <URL>http://mocktarget.apigee.net</URL>
     <Properties>
