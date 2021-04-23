@@ -1,15 +1,12 @@
 <TargetEndpoint name="apim">
   <FaultRules/>
   <HTTPTargetConnection>
-    <!-- {{ HOSTED_TARGET_CONNECTION }} -->
-    <URL>https://api.home-testing-marcind.kainos.io</URL>
-    <Properties>
-      <Property name="supports.http10">true</Property>
-      <Property name="request.retain.headers">User-Agent,Referer,Accept-Language</Property>
-    </Properties>
     <SSLInfo>
       <Enabled>true</Enabled>
-      <TrustStore>ref://covidTestResultsTrustStoreRef</TrustStore>
     </SSLInfo>
+    <LoadBalancer>
+      <Server name="covid19-test-results" />
+    </LoadBalancer>
+    <Path>/mybasepath</Path>
   </HTTPTargetConnection>
 </TargetEndpoint>
