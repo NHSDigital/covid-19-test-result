@@ -1,28 +1,10 @@
 <TargetEndpoint name="covid-19-test-result-target">
-  <FaultRules>
-    <FaultRule name="access_token_expired">
-      <Step>
-        <Name>ExtractVariables.OAuthErrorFaultString</Name>
-      </Step>
-      <Step>
-        <Name>AssignMessage.OAuthPolicyErrorResponse</Name>
-      </Step>
-      <Condition>oauthV2.OauthV2.VerifyAccessToken.failed</Condition>
-    </FaultRule>
+  <!-- <FaultRules>
+    ToDo: This part will be filled by different ticket
   </FaultRules>
   <PreFlow>
-    <Request>
-      <Step>
-        <Name>OauthV2.VerifyAccessToken</Name>
-      </Step>
-      <Step>
-        <Name>Quota</Name>
-      </Step>
-      <Step>
-        <Name>SpikeArrest</Name>
-      </Step>
-    </Request>
-  </PreFlow>
+  ToDo: This part will be filled by different ticket
+  </PreFlow> -->
   <Flows>
     <Flow name="mapApigeeParametersIntoHeader">
       <Request>
@@ -49,11 +31,11 @@
     </Flow>
   </Flows>
   <HTTPTargetConnection>
-    <URL>https://api.home-testing-marcind.kainos.io</URL>
-    <Properties>
-      <Property name="supports.http10">true</Property>
-      <Property name="request.retain.headers">User-Agent,Referer,Accept-Language</Property>
-      <Property name="retain.queryparams">apikey</Property>
-    </Properties>
+    <SSLInfo>
+      <Enabled>true</Enabled>
+    </SSLInfo>
+    <LoadBalancer>
+      <Server name="covid19-test-results" />
+    </LoadBalancer>
   </HTTPTargetConnection>
 </TargetEndpoint>
