@@ -21,18 +21,18 @@
         <Step>
           <Name>AssignMessage.AddApigeeClientIdHeader</Name>
         </Step>
-        <Step>
-          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
-        </Step>
+<!--        <Step>-->
+<!--          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>-->
+<!--        </Step>-->
         <Step>
           <Name>AssignMessage.AddDeveloperAppNameHeader</Name>
         </Step>
         <Step>
           <Name>AssignMessage.AddNhsdCorrelationIdHeader</Name>
         </Step>
-        <Step>
-          <Name>AssignMessage.AddProxyClientIpHeader</Name>
-        </Step>
+<!--        <Step>-->
+<!--          <Name>AssignMessage.AddProxyClientIpHeader</Name>-->
+<!--        </Step>-->
       </Request>
       <Response/>
     </Flow>
