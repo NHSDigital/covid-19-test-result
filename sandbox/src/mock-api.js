@@ -55,7 +55,7 @@ app.get("/observation", (req, res) => {
             identifier: [
               {
                 system: "https://fhir.nhs.uk/Id/nhs-number",
-                value: req.query.patient.identifier,
+                value: req.query["patient.identifier"],
               },
             ],
           },
@@ -113,7 +113,7 @@ app.get("/observation", (req, res) => {
             identifier: [
               {
                 system: "https://fhir.nhs.uk/Id/nhs-number",
-                value: req.query.patient.identifier,
+                value: req.query["patient.identifier"],
               },
             ],
           },
