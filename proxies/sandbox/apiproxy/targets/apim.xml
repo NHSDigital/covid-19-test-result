@@ -1,12 +1,6 @@
 <TargetEndpoint name="apim">
   <FaultRules/>
   <HTTPTargetConnection>
-    <SSLInfo>
-      <Enabled>true</Enabled>
-    </SSLInfo>
-    <LoadBalancer>
-      <Server name="covid19-test-results" />
-    </LoadBalancer>
-    <Path>/mybasepath</Path>
+    {{ HOSTED_TARGET_CONNECTION }}
   </HTTPTargetConnection>
 </TargetEndpoint>
