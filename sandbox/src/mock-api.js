@@ -21,7 +21,7 @@ app.get("/_status", (req, res) => {
 });
 
 app.get("/observation", (req, res) => {
-  const nhsNumberPattern = "^https:\/\/fhir.nhs.uk\/Id\/nhs-number[|]{1}[0-9]{10}$";
+  const nhsNumberPattern = "^https:\/\/fhir[.]nhs[.]uk\/Id\/nhs-number[|]{1}[0-9]{10}$";
   let nhsNumber = new RegExp(nhsNumberPattern);
 
   if (!req.query["patient.identifier"] | !nhsNumber.test(req.query["patient.identifier"])) {
@@ -55,7 +55,7 @@ app.get("/observation", (req, res) => {
             identifier: [
               {
                 system: "https://fhir.nhs.uk/Id/nhs-number",
-                value: req.query["patient.identifier"],
+                value: req.query["patient.identifier"].split("|")[1],
               },
             ],
           },
@@ -113,7 +113,7 @@ app.get("/observation", (req, res) => {
             identifier: [
               {
                 system: "https://fhir.nhs.uk/Id/nhs-number",
-                value: req.query["patient.identifier"],
+                value: req.query["patient.identifier"].split("|")[1],
               },
             ],
           },
