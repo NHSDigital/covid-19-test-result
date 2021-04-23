@@ -3,7 +3,7 @@
     <Request>
       <Step>
         <Name>RaiseFault.MethodNotAllowed</Name>
-        <Condition>request.verb != "POST"</Condition>
+        <Condition>request.verb != "GET"</Condition>
       </Step>
       <Step>
         <Name>OauthV2.VerifyAccessToken</Name>
