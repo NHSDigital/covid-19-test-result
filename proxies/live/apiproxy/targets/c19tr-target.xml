@@ -9,6 +9,9 @@
     <Flow name="mapApigeeParametersIntoHeader">
       <Request>
         <Step>
+          <Name>OAuthV2.VerifyAccessToken</Name>
+        </Step>
+        <Step>
           <Name>AssignMessage.AddAccessTokenIdHeader</Name>
         </Step>
         <Step>
