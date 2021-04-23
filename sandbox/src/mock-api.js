@@ -3,7 +3,7 @@
 const express = require("express");
 
 // Constants
-const PORT = 8080;
+const PORT = 9000;
 const HOST = "0.0.0.0";
 
 // App
@@ -21,7 +21,10 @@ app.get("/_status", (req, res) => {
 });
 
 app.get("/observation", (req, res) => {
-  if (!req.query.patient) {
+  const nhsNumberPattern = "^https:\/\/fhir.nhs.uk\/Id\/nhs-number[|]{1}[0-9]{10}$";
+  let nhsNumber = new RegExp(nhsNumberPattern);
+  
+  if (!req.query["patient.identifier"] | !nhsNumber.test(req.query["patient.identifier"])) {
     res.sendStatus(400);
   }
 
