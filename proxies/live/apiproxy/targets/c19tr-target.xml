@@ -18,14 +18,12 @@
         <Step>
           <Name>Javascript.AddClientRPDetailsHeader</Name>
         </Step>
-<!--  //TODO does not work for neither apigee.client_id and client_id variable      -->
-<!--        <Step>-->
-<!--          <Name>AssignMessage.AddApigeeClientIdHeader</Name>-->
-<!--        </Step>-->
-<!--  //TODO does not work for neithet developer.id and developer.app.id      -->
-<!--        <Step>-->
-<!--          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>-->
-<!--        </Step>-->
+        <Step>
+          <Name>AssignMessage.AddApigeeClientIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
+        </Step>
         <Step>
           <Name>AssignMessage.AddDeveloperAppNameHeader</Name>
         </Step>
