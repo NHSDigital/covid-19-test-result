@@ -16,9 +16,6 @@
           <Name>AssignMessage.AddAccessTokenIdHeader</Name>
         </Step>
         <Step>
-          <Name>Javascript.AddClientRPDetailsHeader</Name>
-        </Step>
-        <Step>
           <Name>AssignMessage.AddApigeeClientIdHeader</Name>
         </Step>
         <Step>
@@ -32,6 +29,9 @@
         </Step>
         <Step>
           <Name>AssignMessage.AddProxyClientIpHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddUserIdHeader</Name>
         </Step>
       </Request>
       <Response/>
