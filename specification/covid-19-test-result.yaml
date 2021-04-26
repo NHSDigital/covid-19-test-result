@@ -1,7 +1,7 @@
 openapi: 3.0.0
 x-nhs-api-spec-guid: "bb24463f-9f34-4c78-9f49-088cb3b9d7b4"
 tags:
-  - name: Covid19 Tests History
+  - name: Observation
 info:
   version: 1.0.0
   title: COVID 19 Test Results FHIR API
@@ -13,18 +13,18 @@ info:
     email: api.management@nhs.net
   description: | 
     ## Overview
-    Use this API to access a patient’s Covid19 test results history.
+    Use this API to access a patient’s COVID-19 test results history.
 
     You can:
-    - get a patient's coronavirus (COVID-19) tests history, based on their NHS number for a specific date range
+    - get a patient's coronavirus (COVID-19) tests history, based on their NHS number with a optional specific date range
 
     You cannot currently use this API to:
     - get details of other types of tests
-    - get the tests history for a specific date range (without NHS number)
+    - get the tests history for a specific date range without NHS number
     
     You get the following data:
     - Covid test event details
-    - patient demographic details, as captured at the point of testing
+    - Patient demographic details, as captured at the point of testing (next iteration)
 
     The patient demographic details might differ from those held in the [Personal Demographics Service (PDS)](https://digital.nhs.uk/services/demographics).
     To get demographic details from PDS, use the [Personal Demographics Service FHIR API](https://digital.nhs.uk/developer/api-catalogue/personal-demographics-service-fhir).
@@ -61,7 +61,7 @@ info:
     Specifically, it is aligned with [FHIR UK Core](https://digital.nhs.uk/services/fhir-uk-core), which is built on FHIR Release 4.
     You don’t need to know much about FHIR to use this API - FHIR APIs are just RESTful APIs that follow specific rules.
     In particular:
-    - resource names are capitalised and singular, and use US spellings, for example `/Immunization` not `/immunisations`
+    - resource names are capitalised and singular, and use US spellings, for example `/Observation` not `/observation`
     - array names are singular, for example `entry` not `entries` for address lines
     - data items that are country-specific and thus not included in the FHIR global base resources are usually wrapped in an `extension` object
     There are [libraries and SDKs available](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#fhir-libraries-and-sdks) to help with FHIR API integration.
@@ -82,6 +82,7 @@ info:
     - specifically, the end user must have their identity verified to 'high' (P9) level
     - the calling application must pass the user's NHS login identity token in the `NHSD-User-Identity` header when calling the API
     - the NHS number in the identity token must match the NHS number for which data is being requested
+    
     ## Environments and testing
     | Environment       | Base URL                                                               |
     | ----------------- | ---------------------------------------------------------------------- |
@@ -118,7 +119,7 @@ paths:
       summary: Get COVID19 tests history for a given patient
       operationId: get-covid-test-history
       tags:
-        - Covid19 Tests History
+        - Observation
       description: |
         Given an NHS number, get the patient's Covid19 tests history.
         Also returns the patient's demographic details, as captured at the point of testing.
@@ -201,7 +202,7 @@ paths:
           required: false
           schema:
             type: string
-            example: "1240461000000109"
+            example: "871562009"
       responses:
         '200':
           description: Valid request that returns all accredited systems found that match the search criteria (which may be 0).
