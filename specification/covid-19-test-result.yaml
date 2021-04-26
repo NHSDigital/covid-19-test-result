@@ -117,6 +117,8 @@ paths:
     get:
       summary: Get COVID19 tests history for a given patient
       operationId: get-covid-test-history
+      tags:
+        - Covid19 Tests History
       description: |
         Given an NHS number, get the patient's Covid19 tests history.
         Also returns the patient's demographic details, as captured at the point of testing.
