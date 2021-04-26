@@ -1,7 +1,4 @@
 <TargetEndpoint name="covid-19-test-result-target">
-  <!-- <FaultRules>
-    ToDo: This part will be filled by different ticket
-  </FaultRules> -->
   <PreFlow>
     <Request>
       <Step>
