@@ -1,5 +1,7 @@
 openapi: 3.0.0
 x-nhs-api-spec-guid: "bb24463f-9f34-4c78-9f49-088cb3b9d7b4"
+tags:
+  - name: Covid19 Tests History
 info:
   version: 1.0.0
   title: COVID 19 Test Results FHIR API
@@ -93,10 +95,7 @@ info:
     * only covers a limited set of scenarios
     * is open access, so does not allow you to test authorisation
     For details of sandbox test scenarios, or to try out the sandbox using our 'Try this API' feature, see the documentation for each endpoint.
-    Alternatively, you can try out the sandbox using our Postman collection:
-    
-    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/e999c0aeddefe51b6b89)
-    
+
     ### Integration testing
     Our [integration test environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#integration-testing):
     * is for formal integration testing
