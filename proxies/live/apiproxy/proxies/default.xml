@@ -1,4 +1,16 @@
 <ProxyEndpoint name="default">
+  <PreFlow name="AccessTokenVerification">
+    <Request>
+      <Step>
+        <Name>RaiseFault.MethodNotAllowed</Name>
+        <Condition>request.verb != "GET"</Condition>
+      </Step>
+      <Step>
+        <Name>OauthV2.VerifyAccessToken</Name>
+      </Step>
+    </Request>
+    <Response/>
+  </PreFlow>
   <Flows>
     <Flow name="OptionsPreFlight">
       <Request/>

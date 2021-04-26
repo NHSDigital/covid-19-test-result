@@ -1,11 +1,39 @@
 <TargetEndpoint name="covid-19-test-result-target">
-  <!-- <FaultRules>
-    ToDo: This part will be filled by different ticket
-  </FaultRules>
   <PreFlow>
-  ToDo: This part will be filled by different ticket
-  </PreFlow> -->
-
+    <Request>
+      <Step>
+        <Name>OauthV2.VerifyAccessToken</Name>
+      </Step>
+    </Request>
+  </PreFlow>
+  <Flows>
+    <Flow name="mapApigeeParametersIntoHeader">
+      <Request>
+        <Step>
+          <Name>AssignMessage.AddAccessTokenIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddApigeeClientIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddDeveloperAppIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddDeveloperAppNameHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddNhsdCorrelationIdHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddProxyClientIpHeader</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddUserIdHeader</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+  </Flows>
   <HTTPTargetConnection>
     <SSLInfo>
       <Enabled>true</Enabled>
