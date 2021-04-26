@@ -9,7 +9,7 @@ info:
     name: NHS Digital API Management
     url: 'https://digital.nhs.uk/developer/help-and-support'
     email: api.management@nhs.net
-  description: |
+  description: | 
     ## Overview
     Use this API to access a patient’s Covid19 test results history.
 
@@ -128,7 +128,7 @@ paths:
         | Scenario                      | Request                                                              | Response                                   |
         | ----------------------------- | -------------------------------------------------------------------- | ------------------------------------------ |
         | Covid19 tests history found   | `patient.identifier`=`https://fhir.nhs.uk/Id/nhs-number\|1234567890` | HTTP Status 200 with test results data in response body |
-        | No test results found         | `patient.identifier`= https://fhir.nhs.uk/Id/nhs-number\|1000000000` | HTTP Status 200 with empty bundle in response body |
+        | No test results found         | `patient.identifier`= anything else                                  | HTTP Status 200 with empty bundle in response body |
         You can try out the sandbox using the 'Try this API' feature on this page.
       parameters:
         - in: header
@@ -245,7 +245,7 @@ components:
               value: ASD32145123
             status: final
             subject:
-              reference: Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6
+              reference: Patient/1234567890
               type: Patient
               identifier:
               - system: https://fhir.nhs.uk/Id/nhs-number
@@ -288,7 +288,7 @@ components:
               value: ASD32145127
             status: final
             subject:
-              reference: Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6
+              reference: Patient/1234567890
               type: Patient
               identifier:
               - system: https://fhir.nhs.uk/Id/nhs-number
