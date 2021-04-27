@@ -52,8 +52,6 @@ app.get("/observation", (req, res) => {
       total: 2,
       entry: [
         {
-          fullUrl:
-            "https://test-results-api.nhs.uk/R4/Observation/eb89a392-5b20-11eb-ae93-0242ac130002", //ToDo: Check if it was removed from the real API
           resource: {
             resourceType: "Observation",
             id: "ASD32145123",
@@ -70,7 +68,7 @@ app.get("/observation", (req, res) => {
               identifier: [
                 {
                   system: "https://fhir.nhs.uk/Id/nhs-number",
-                  value: req.query.patient,
+                  value: req.query["patient.identifier"].split("|")[1],
                 },
               ],
             },
@@ -112,20 +110,18 @@ app.get("/observation", (req, res) => {
                 },
               ],
             },
-            performer: {
-              //ToDo: New field in the doc (New ticket is needed) (check if ticket is created with Richard) (different epic)
-            },
-            extension: {
-              //ToDo: New field in the doc (New ticket is needed)
-            },
+            // performer: {
+            //   //ToDo: New field in the doc (New ticket is needed) (check if ticket is created with Richard) (different epic)
+            // },
+            // extension: {
+            //   //ToDo: New field in the doc (New ticket is needed)
+            // },
           },
           search: {
             mode: "match",
           },
         },
         {
-          fullUrl:
-            "https://test-results-api.nhs.uk/R4/Observation/05ac9ea0-5b21-11eb-ae93-0242ac130002", //ToDo: Check if it was removed from the real API
           resource: {
             resourceType: "Observation",
             id: "05ac9ea0-5b21-11eb-ae93-0242ac130002",
@@ -142,7 +138,7 @@ app.get("/observation", (req, res) => {
               identifier: [
                 {
                   system: "https://fhir.nhs.uk/Id/nhs-number",
-                  value: req.query.patient,
+                  value: req.query["patient.identifier"].split("|")[1],
                 },
               ],
             },
@@ -184,12 +180,12 @@ app.get("/observation", (req, res) => {
                 },
               ],
             },
-            performer: {
-              //ToDo: New field in the doc (New ticket is needed)
-            },
-            extension: {
-              //ToDo: New field in the doc (New ticket is needed)
-            },
+            // performer: {
+            //   //ToDo: New field in the doc (New ticket is needed)
+            // },
+            // extension: {
+            //   //ToDo: New field in the doc (New ticket is needed)
+            // },
           },
           search: {
             mode: "match",
