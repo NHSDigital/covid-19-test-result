@@ -14,7 +14,6 @@ install-hooks:
 
 lint:
 	npm run lint
-	npm run smoke-test
 	poetry run flake8 **/*.py
 
 clean:
@@ -45,6 +44,8 @@ release: clean publish build-proxy
 	mkdir -p dist
 	cp -r build/. dist
 
+	cp -r tests dist
+
 	cp ecs-proxies-deploy.yml dist/ecs-deploy-internal-dev-sandbox.yml
 	cp ecs-proxies-deploy.yml dist/ecs-deploy-internal-qa-sandbox.yml
 
@@ -52,3 +53,7 @@ release: clean publish build-proxy
 
 test:
 	echo "TODO: add tests"
+
+smoketest:
+#	this target is for end to end smoketests this would be run 'post deploy' to verify an environment is working
+	poetry run pytest -v --junitxml=smoketest-report.xml -s -m smoketest
