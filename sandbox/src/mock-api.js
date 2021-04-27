@@ -63,8 +63,8 @@ app.get("/observation", (req, res) => {
             ],
             status: "final",
             subject: {
-              reference: "Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6", //ToDo: Change value to Patient/DPSsubjectId
-              type: "Patient", //ToDo: Missing in the real API
+              reference: "Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              type: "Patient",
               identifier: [
                 {
                   system: "https://fhir.nhs.uk/Id/nhs-number",
@@ -72,7 +72,7 @@ app.get("/observation", (req, res) => {
                 },
               ],
             },
-            code: { //ToDo: Missing field. Must be added to the real API (New ticket is needed) (code=871552002 (antibody test) or code=871562009 (antigen test))
+            code: {
               coding: [{
                 system: "http://snomed.info/sct",
                 code: "871562009",
@@ -133,8 +133,8 @@ app.get("/observation", (req, res) => {
             ],
             status: "final",
             subject: {
-              reference: "Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6", //ToDo: Change value to Patient/DPSsubjectId
-              type: "Patient", //ToDo: Missing in the real API
+              reference: "Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              type: "Patient",
               identifier: [
                 {
                   system: "https://fhir.nhs.uk/Id/nhs-number",
@@ -142,7 +142,7 @@ app.get("/observation", (req, res) => {
                 },
               ],
             },
-            code: { //ToDo: Missing field. Must be added to the real API (New ticket is needed)
+            code: {
               coding: [{
                 system: "http://snomed.info/sct",
                 code: "871562009",
@@ -181,10 +181,10 @@ app.get("/observation", (req, res) => {
               ],
             },
             // performer: {
-            //   //ToDo: New field in the doc (New ticket is needed)
+            //   //ToDo: as above
             // },
             // extension: {
-            //   //ToDo: New field in the doc (New ticket is needed)
+            //   //ToDo: as above
             // },
           },
           search: {
