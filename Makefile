@@ -1,7 +1,5 @@
 SHELL=/bin/bash -euo pipefail
 
-install: install-node install-python install-hooks
-
 install-python:
 	poetry install
 
@@ -11,6 +9,8 @@ install-node:
 
 install-hooks:
 	cp scripts/pre-commit .git/hooks/pre-commit
+
+install: install-node install-python install-hooks
 
 lint:
 	npm run lint
@@ -44,8 +44,6 @@ release: clean publish build-proxy
 	mkdir -p dist
 	cp -r build/. dist
 
-	cp -r tests dist
-
 	cp ecs-proxies-deploy.yml dist/ecs-deploy-internal-dev-sandbox.yml
 	cp ecs-proxies-deploy.yml dist/ecs-deploy-internal-qa-sandbox.yml
 
@@ -54,6 +52,5 @@ release: clean publish build-proxy
 test:
 	echo "TODO: add tests"
 
-smoketest:
-#	this target is for end to end smoketests this would be run 'post deploy' to verify an environment is working
+smoketest: pytest-guards
 	poetry run pytest -v --junitxml=smoketest-report.xml -s -m smoketest

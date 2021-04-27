@@ -1,23 +1,27 @@
-from functools import partial
-
+from typing import List
+from uuid import uuid4
+from time import time, sleep
 import pytest
+from tests import conftest
 from aiohttp import ClientResponse
+from api_test_utils import env
+from api_test_utils import poll_until
 from api_test_utils.api_session_client import APISessionClient
 from api_test_utils.api_test_session_config import APITestSessionConfig
-from api_test_utils import poll_until, env
 
 
-async def _is_deployed(resp: ClientResponse, api_test_config: APITestSessionConfig) -> bool:
+def dict_path(raw, path: List[str]):
+    if not raw:
+        return raw
 
-    if resp.status != 200:
-        return False
-    body = await resp.json()
+    if not path:
+        return raw
 
-    return body.get("commitId") == api_test_config.commit_id
+    res = raw.get(path[0])
+    if not res or len(path) == 1 or type(res) != dict:
+        return res
 
-
-async def is_401(resp: ClientResponse) -> bool:
-    return resp.status == 401
+    return dict_path(res, path[1:])
 
 
 @pytest.mark.e2e
@@ -29,18 +33,18 @@ def test_output_test_config(api_test_config: APITestSessionConfig):
 @pytest.mark.e2e
 @pytest.mark.smoketest
 @pytest.mark.asyncio
-async def test_wait_for_ping(api_client: APISessionClient, api_test_config: APITestSessionConfig):
-    """
-        test for _ping ..  this uses poll_until to wait until the correct SOURCE_COMMIT_ID ( from env var )
-        is available
-    """
+async def test_wait_for_ping(
+    api_client: APISessionClient, api_test_config: APITestSessionConfig
+):
+    async def apigee_deployed(resp: ClientResponse):
+        if resp.status != 200:
+            return False
+        body = await resp.json()
 
-    is_deployed = partial(_is_deployed, api_test_config=api_test_config)
+        return body.get("commitId") == api_test_config.commit_id
 
     await poll_until(
-        make_request=lambda: api_client.get('_ping'),
-        until=is_deployed,
-        timeout=120
+        make_request=lambda: api_client.get("_ping"), until=apigee_deployed, timeout=30
     )
 
 
@@ -49,27 +53,36 @@ async def test_wait_for_ping(api_client: APISessionClient, api_test_config: APIT
 @pytest.mark.asyncio
 async def test_check_status_is_secured(api_client: APISessionClient):
 
-    await poll_until(
-        make_request=lambda: api_client.get('_status'),
-        until=is_401,
-        timeout=120
-    )
+    async with api_client.get("_status", allow_retries=True) as resp:
+        assert resp.status == 401
 
 
 @pytest.mark.e2e
 @pytest.mark.smoketest
 @pytest.mark.asyncio
-async def test_wait_for_status(api_client: APISessionClient, api_test_config: APITestSessionConfig):
+async def test_wait_for_status(
+    api_client: APISessionClient, api_test_config: APITestSessionConfig
+):
+    async def is_deployed(resp: ClientResponse):
+        if resp.status != 200:
+            return False
+        body = await resp.json()
 
-    """
-        test for _status ..  this uses poll_until to wait until the correct SOURCE_COMMIT_ID ( from env var )
-        is available
-    """
+        if body.get("commitId") != api_test_config.commit_id:
+            return False
 
-    is_deployed = partial(_is_deployed, api_test_config=api_test_config)
+        backend = dict_path(body, ["checks", "healthcheck", "outcome", "version"])
+        if not backend:
+            return True
+
+        return backend.get("commitId") == api_test_config.commit_id
+
+    deploy_timeout = 120 if api_test_config.api_environment.endswith("sandbox") else 30
 
     await poll_until(
-        make_request=lambda: api_client.get('_status', headers={'apikey': env.status_endpoint_api_key()}),
+        make_request=lambda: api_client.get(
+            "_status", headers={"apikey": env.status_endpoint_api_key()}
+        ),
         until=is_deployed,
-        timeout=120
+        timeout=deploy_timeout,
     )

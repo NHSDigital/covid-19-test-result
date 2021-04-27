@@ -1,0 +1,15 @@
+{
+  "name": "@aws-ee/mock-api-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mock API Service",
+  "author": "aws-ee",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "src/mock-api.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node src/mock-api.js"
+  }
+}
