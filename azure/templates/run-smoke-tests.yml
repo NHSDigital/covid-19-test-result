@@ -17,7 +17,10 @@ steps:
       export ID_TOKEN_NHS_LOGIN_PRIVATE_KEY_ABSOLUTE_PATH="$(Pipeline.Workspace)/secrets/$(ID_TOKEN_NHS_LOGIN_PRIVATE_KEY)"
       export APIGEE_API_TOKEN="$(secret.AccessToken)"
 
-      make smoketest
+    #   make smoketest
+      echo "$(pwd)"
+      echo "$(ls)"
+      poetry run pytest tests/smoke -v --junitxml=smoketest-report.xml -s -m smoketest
     workingDirectory: $(Pipeline.Workspace)/s/$(SERVICE_NAME)/$(SERVICE_ARTIFACT_NAME)
     displayName: run smoketests
 
