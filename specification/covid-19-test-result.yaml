@@ -153,19 +153,17 @@ paths:
         - name: NHSD-User-Identity
           in: header
           description: |
-            NOT IMPLEMENTED YET
             Open ID Connect ID token for the end user citizen, as obtained from NHS login.
             Must be a signed JWT in the format `xxxxx.yyyyy.zzzzz`.
             Must be valid i.e. not expired.
             Must be for a user who has had their identity verified to 'high' (P9) level.
-          required: false
+          required: true
           schema:
             type: string
             example: xxxxx.yyyyy.zzzzz
         - name: NHSD-Client-RP-Details
           in: header
           description: |
-            NOT IMPLEMENTED YET
             Client details as registered with API Management platform
           required: false
           schema:
