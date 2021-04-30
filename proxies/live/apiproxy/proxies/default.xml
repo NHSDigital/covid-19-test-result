@@ -9,11 +9,11 @@
         <Name>OauthV2.VerifyAccessToken</Name>
       </Step>
     </Request>
-    <!-- <Request>
+    <Request>
       <Step>
           <Name>KeyValueMapOperations.GetVariables</Name>
       </Step>
-    </Request> -->
+    </Request>
     <Response/>
   </PreFlow>
   <Flows>
@@ -36,7 +36,7 @@
       </Response>
       <Condition>(proxy.pathsuffix MatchesPath "/_ping") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
     </Flow>
-    <!-- <Flow name="StatusEndpoint">
+    <Flow name="StatusEndpoint">
       <Description/>
       <Request>
         <Step>
@@ -56,7 +56,7 @@
         </Step>
       </Response>
       <Condition>(proxy.pathsuffix MatchesPath "/_status") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
-    </Flow> -->
+    </Flow>
   </Flows>
   <PreFlow/>
   <PostClientFlow name="PostClientFlow">
@@ -76,9 +76,9 @@
   <RouteRule name="NoRoutePing">
     <Condition>(proxy.pathsuffix MatchesPath "/_ping") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
   </RouteRule>
-  <!-- <RouteRule name="NoRouteStatus">
+  <RouteRule name="NoRouteStatus">
     <Condition>(proxy.pathsuffix MatchesPath "/_status") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
-  </RouteRule> -->
+  </RouteRule>
   <RouteRule name="covid-19-test-result-target">
     <TargetEndpoint>covid-19-test-result-target</TargetEndpoint>
   </RouteRule>
