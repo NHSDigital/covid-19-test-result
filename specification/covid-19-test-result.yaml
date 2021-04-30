@@ -4,7 +4,7 @@ tags:
   - name: Observation
 info:
   version: v1.0.82-alpha
-  title: COVID-19 Test Results FHIR API
+  title: COVID-19 Test History API
   license:
     name: MIT
   contact:
