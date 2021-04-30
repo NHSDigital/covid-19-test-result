@@ -76,21 +76,21 @@
         <Name>JavaScript.ValidateClaimFromExternalIdToken</Name>
         <Condition>jwks != null</Condition>
       </Step>
-      <!-- <Step>
+      <Step>
         <Name>ServiceCallout.NHSLoginGetJWKS</Name>
         <Condition>jwks = null Or jwksUpdated = false</Condition>
-      </Step> -->
-      <!-- <Step>
+      </Step>
+      <Step>
         <Name>PopulateCache.JWKS</Name>
         <Condition>jwks = null Or jwksUpdated = false</Condition>
       </Step>
       <Step>
         <Name>AssignMessage.JWKS</Name>
         <Condition>jwks = null Or jwksUpdated = false</Condition>
-      </Step> -->
-      <!-- <Step>
+      </Step>
+      <Step>
         <Name>VerifyJWT.FromExternalIdToken</Name>
-      </Step> -->
+      </Step>
       <Step>
         <Name>Quota</Name>
       <Step> 
