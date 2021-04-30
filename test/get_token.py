@@ -59,14 +59,7 @@ def main():
         if isinstance(auth_code, list):
             auth_code = auth_code[0]
 
-        resp3 = requests.post(f"{identity_service_url}/token",
-                            data={
-                                'grant_type': 'authorization_code',
-                                'code': auth_code,
-                                'redirect_uri': redirect_uri,
-                                'client_id': client_id,
-                                'client_secret': client_secret,
-                            })
+        resp3 = requests.post(f"{identity_service_url}/token", data={'grant_type': 'authorization_code', 'code': auth_code, 'redirect_uri': redirect_uri, 'client_id': client_id, 'client_secret': client_secret})
         return resp3.json()['access_token']
 
 
