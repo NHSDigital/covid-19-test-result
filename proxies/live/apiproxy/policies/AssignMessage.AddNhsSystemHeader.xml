@@ -1,4 +1,4 @@
-<AssignMessage async="false" continueOnError="false" enabled="true" name="AssignMessage.AddNhsSystemHeader">
+<AssignMessage async="false" continueOnError="true" enabled="true" name="AssignMessage.AddNhsSystemHeader">
   <Add>
       <Headers>
           <Header name="NHSD-Nhs-System">{jwt.DecodeJWT.FromExternalIdToken.decoded.claim.requesting_system}</Header>
