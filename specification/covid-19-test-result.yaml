@@ -4,7 +4,7 @@ tags:
   - name: Observation
 info:
   version: v1.0.82-alpha
-  title: COVID 19 Test Results FHIR API
+  title: COVID-19 Test Results FHIR API
   license:
     name: MIT
   contact:
@@ -13,21 +13,16 @@ info:
     email: api.management@nhs.net
   description: |
     ## Overview
-    Use this API to access a patient’s COVID-19 test results history.
+    Use this API to access a patient’s coronavirus (COVID-19) test results history.
 
     You can:
-    - get a patient's coronavirus (COVID-19) tests history, based on their NHS number with a optional specific date range
+    - get a patient's COVID-19 test history, based on their NHS number with a optional specific date range
 
     You cannot currently use this API to:
-    - get details of other types of tests
-    - get the tests history for a specific date range without NHS number
+    - get details of other types of test
 
     You get the following data:
-    - Covid test event details
-    - Patient demographic details, as captured at the point of testing (next iteration)
-
-    The patient demographic details might differ from those held in the [Personal Demographics Service (PDS)](https://digital.nhs.uk/services/demographics).
-    To get demographic details from PDS, use the [Personal Demographics Service FHIR API](https://digital.nhs.uk/developer/api-catalogue/personal-demographics-service-fhir).
+    - COVID-19 test event details
 
     ### Data availability, timing and quality
     All test records are verified to ensure the NHS number is correct before making them available via the API.
@@ -44,6 +39,7 @@ info:
 
     Make sure you have a valid use case before you go too far with your development.
     To do this, [contact us](https://digital.nhs.uk/developer/help-and-support).
+    
     You must do this before you can go live (see ‘Onboarding’ below).
 
     ## API status and roadmap    
@@ -57,17 +53,21 @@ info:
 
     ## Technology
     This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest).
+    
     It also conforms to the [FHIR](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#fhir) global standard for health care data exchange.
     Specifically, it is aligned with [FHIR UK Core](https://digital.nhs.uk/services/fhir-uk-core), which is built on FHIR Release 4.
+    
     You don’t need to know much about FHIR to use this API - FHIR APIs are just RESTful APIs that follow specific rules.
     In particular:
     - resource names are capitalised and singular, and use US spellings, for example `/Observation` not `/observation`
     - array names are singular, for example `entry` not `entries` for address lines
     - data items that are country-specific and thus not included in the FHIR global base resources are usually wrapped in an `extension` object
+    
     There are [libraries and SDKs available](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#fhir-libraries-and-sdks) to help with FHIR API integration.
 
     ## Network access
     This API is available on the internet and, indirectly, on the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
+    
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
 
     ## Security and authorisation
@@ -76,6 +76,7 @@ info:
 
     Specifically, it uses the following security pattern:
     - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
+    
     Note that:
     - the end user must be a citizen
     - the calling application must strongly authenticate the end user using NHS login
@@ -86,7 +87,7 @@ info:
     ## Environments and testing
     | Environment       | Base URL                                                               |
     | ----------------- | ---------------------------------------------------------------------- |
-    | Sandbox           | `https://internal-qa-sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4` |
+    | Sandbox           | `https://sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4` |
     | Integration test  | `https://internal-qa.api.service.nhs.uk/covid-19-test-result/FHIR/R4`         |
     | Production        | Not yet available                                                      |
 
@@ -95,6 +96,7 @@ info:
     * is for early developer testing
     * only covers a limited set of scenarios
     * is open access, so does not allow you to test authorisation
+    
     For details of sandbox test scenarios, or to try out the sandbox using our 'Try this API' feature, see the documentation for each endpoint.
 
     ### Integration testing
@@ -102,11 +104,13 @@ info:
     * is for formal integration testing
     * includes authorisation
          
-    Currently, the integration test environment isn't fully available.
+    Currently, the integration test environment is not fully available.
+    
     For more details see [integration testing with our RESTful APIs](https://digital.nhs.uk/developer/guides-and-documentation/testing#integration-testing-with-our-restful-apis).
 
     ## Onboarding
     You need to get your software approved by us before it can go live with this API. We call this onboarding. The onboarding process can sometimes be quite long, so it’s worth planning well ahead.
+    
     Details to follow.
 servers:
   - url: 'https://internal-qa-sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
@@ -116,20 +120,19 @@ servers:
 paths:
   /Observation:
     get:
-      summary: Get COVID19 tests history for a given patient
+      summary: Get COVID-19 test history
       operationId: get-covid-test-history
       tags:
         - Observation
       description: |
-        Given an NHS number, get the patient's Covid19 tests history.
-        Also returns the patient's demographic details, as captured at the point of testing.
+        Given an NHS number, get the patient's COVID-19 test history.
 
         ## Sandbox testing
         You can test the following scenarios in our sandbox environment:
 
         | Scenario                      | Request                                                              | Response                                   |
         | ----------------------------- | -------------------------------------------------------------------- | ------------------------------------------ |
-        | Covid19 tests history found   | `patient.identifier`=`https://fhir.nhs.uk/Id/nhs-number\|1234567890` | HTTP Status 200 with test results data in response body |
+        | COVID-19 test history found   | `patient.identifier`=`https://fhir.nhs.uk/Id/nhs-number\|1234567890` | HTTP Status 200 with test results data in response body |
         | No test results found         | `patient.identifier`= anything else                                  | HTTP Status 200 with empty bundle in response body |
         You can try out the sandbox using the 'Try this API' feature on this page.
       parameters:
@@ -174,14 +177,14 @@ paths:
             example: 'https://fhir.nhs.uk/Id/nhs-number|1234567890'
         - in: query
           name: date
-          description: the effective date range as to when the observation was recorded and can be used multiple times as a search parameter
+          description: The effective date range when the observation was recorded and can be used multiple times as a search parameter.
           required: false
           schema:
             type: string
             example: ge2010-01-01&date=le2011-12-31
         - in: query
           name: code
-          description: The SNOMED code related to the observation type
+          description: The SNOMED code related to the observation type.
           required: false
           schema:
             type: string
@@ -290,11 +293,9 @@ paths:
         '400':
           description: Missing or invalid query parameter(s).
         '401':
-          description: Missing or invalid ID/OAuth toke or NHS number in request doesn't match NHS number in ID token
+          description: Missing or invalid ID/OAuth toke or NHS number in request doesn't match NHS number in ID token.
         '404':
-          description: Invalid endpoint path
-        '500':
-          description: Any Server error
+          description: Invalid endpoint path.
 components:
   schemas:
     observationExample:
