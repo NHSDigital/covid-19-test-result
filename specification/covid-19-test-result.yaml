@@ -88,7 +88,7 @@ info:
     | Environment       | Base URL                                                               |
     | ----------------- | ---------------------------------------------------------------------- |
     | Sandbox           | `https://internal-dev-sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4` |
-    | Integration test  | `https://internal-qa.api.service.nhs.uk/covid-19-test-result/FHIR/R4`         |
+    | Integration test  | `https://internal-dev.api.service.nhs.uk/covid-19-test-result/FHIR/R4`         |
     | Production        | Not yet available                                                      |
 
     ### Sandbox testing
