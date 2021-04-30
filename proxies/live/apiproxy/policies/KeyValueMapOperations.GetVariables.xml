@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KeyValueMapOperations.GetVariables" mapIdentifier="c19tr-variables">
-  <!-- UNUSED POLICY
-  Leaving this in because I'm sure there will be a future need for unencrypted configuration variables for this API Proxy -->
+  <Get assignTo="private.apigee.jwks_path" index="1">
+    <Key>
+        <Parameter>jwks_path</Parameter>
+    </Key>
+  </Get>
+  <Get assignTo="apigee.issuer" index="1">
+    <Key>
+        <Parameter>issuer</Parameter>
+    </Key>
+  </Get>
 </KeyValueMapOperations>
