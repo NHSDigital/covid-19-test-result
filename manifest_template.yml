@@ -1,5 +1,5 @@
-SERVICE_NAME: covid-19-test-result
-PRODUCT_DISPLAY_NAME: COVID-19 Test Result API
+SERVICE_NAME: covid-19-test-history
+PRODUCT_DISPLAY_NAME: COVID-19 Test Result History API
 DESCRIPTION: This API will return a list of antibody and antigen (PCR and LFT) COVID-19 test results for a given citizen based on NHS number and optionally verified by additional demographic data.
 APIGEE_ENVIRONMENTS:
   - name: internal-dev
@@ -31,7 +31,7 @@ APIGEE_ENVIRONMENTS:
 ---
 meta:
   api:
-    name: covid-19-test-result
+    name: covid-19-test-history
     guid: 57ff6a03-cf4e-4ea1-9834-60294e7691e5
     spec_guids:
       - bb24463f-9f34-4c78-9f49-088cb3b9d7b4
