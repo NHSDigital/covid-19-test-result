@@ -20,7 +20,7 @@ app.get("/_status", (req, res) => {
   res.sendStatus(200);
 });
 
-app.get("/observation", (req, res) => {
+app.get("/FHIR/R4/Observation", (req, res) => {
   const nhsNumberPattern = "^https:\/\/fhir[.]nhs[.]uk\/Id\/nhs-number[|]{1}[0-9]{10}$";
   let nhsNumber = new RegExp(nhsNumberPattern);
 
