@@ -1,6 +1,6 @@
 import sys
 import requests
-# from lxml import html
+from lxml import html
 from urllib.parse import urlparse, parse_qs
 from ast import literal_eval
 import os
@@ -41,33 +41,33 @@ def main():
     resp2 = requests.post(f"{identity_service_url}/simulated_auth",
                           data={"state": state})
 
-    # if "herokuapp" in redirect_uri:
+    if "herokuapp" in redirect_uri:
         # Then the herokuapp has done the POST and so we can parse and results
-    #     tree2 = html.fromstring(resp2.content.decode())
-    #     for div in tree2.body:
-    #         assert div.tag == "div"
-    #         for div in div:
-    #             assert div.tag == "div"
-    #             data_items = [item for item in div if item.tag == "pre"]
-    #             result = literal_eval(data_items[0].text)
-    #             return result['access_token']
-    # else:
-    # We do the POST identity-service expects ourselves
-    qs = urlparse(resp2.history[-1].headers['Location']).query
+        tree2 = html.fromstring(resp2.content.decode())
+        for div in tree2.body:
+            assert div.tag == "div"
+            for div in div:
+                assert div.tag == "div"
+                data_items = [item for item in div if item.tag == "pre"]
+                result = literal_eval(data_items[0].text)
+                return result['access_token']
+    else:
+        # We do the POST identity-service expects ourselves
+        qs = urlparse(resp2.history[-1].headers['Location']).query
 
-    auth_code = parse_qs(qs)['code']
-    if isinstance(auth_code, list):
-        auth_code = auth_code[0]
+        auth_code = parse_qs(qs)['code']
+        if isinstance(auth_code, list):
+            auth_code = auth_code[0]
 
-    resp3 = requests.post(f"{identity_service_url}/token",
-                            data={
-                                'grant_type': 'authorization_code',
-                                'code': auth_code,
-                                'redirect_uri': redirect_uri,
-                                'client_id': client_id,
-                                'client_secret': client_secret,
-                            })
-    return resp3.json()['access_token']
+        resp3 = requests.post(f"{identity_service_url}/token",
+                                data={
+                                    'grant_type': 'authorization_code',
+                                    'code': auth_code,
+                                    'redirect_uri': redirect_uri,
+                                    'client_id': client_id,
+                                    'client_secret': client_secret,
+                                })
+        return resp3.json()['access_token']
 
 
 if __name__ == '__main__':
