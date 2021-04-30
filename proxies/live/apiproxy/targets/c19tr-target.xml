@@ -146,7 +146,7 @@
           <Name>AssignMessage.AddNhsNumberHeader</Name>
         </Step>
         <Step>
-          <Name>AssignMessage.AddNhsSystemHeade</Name>
+          <Name>AssignMessage.AddNhsSystemHeader</Name>
         </Step>
       </Request>
       <Response/>
