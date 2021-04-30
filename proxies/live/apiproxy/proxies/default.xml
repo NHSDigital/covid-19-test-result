@@ -9,11 +9,11 @@
         <Name>OauthV2.VerifyAccessToken</Name>
       </Step>
     </Request>
-    <Request>
+    <!-- <Request>
       <Step>
           <Name>KeyValueMapOperations.GetVariables</Name>
       </Step>
-    </Request>
+    </Request> -->
     <Response/>
   </PreFlow>
   <Flows>

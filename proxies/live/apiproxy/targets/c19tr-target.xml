@@ -76,10 +76,10 @@
         <Name>JavaScript.ValidateClaimFromExternalIdToken</Name>
         <Condition>jwks != null</Condition>
       </Step>
-      <Step>
+      <!-- <Step>
         <Name>ServiceCallout.NHSLoginGetJWKS</Name>
         <Condition>jwks = null Or jwksUpdated = false</Condition>
-      </Step>
+      </Step> -->
       <Step>
         <Name>PopulateCache.JWKS</Name>
         <Condition>jwks = null Or jwksUpdated = false</Condition>
