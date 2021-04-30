@@ -1,7 +1,5 @@
 SHELL=/bin/bash -euo pipefail
 
-install: install-node install-python install-hooks
-
 install-python:
 	poetry install
 
@@ -11,6 +9,8 @@ install-node:
 
 install-hooks:
 	cp scripts/pre-commit .git/hooks/pre-commit
+
+install: install-node install-python install-hooks
 
 lint:
 	npm run lint
@@ -51,3 +51,6 @@ release: clean publish build-proxy
 
 test:
 	echo "TODO: add tests"
+
+smoketest: pytest-guards
+	poetry run pytest -v --junitxml=smoketest-report.xml -s -m smoketest

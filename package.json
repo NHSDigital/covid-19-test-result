@@ -6,7 +6,8 @@
     "lint": "node_modules/.bin/speccy lint specification/covid-19-test-result.yaml --skip default-and-example-are-redundant",
     "publish": "mkdir -p build && node_modules/.bin/speccy resolve specification/covid-19-test-result.yaml -i | poetry run python scripts/yaml2json.py | poetry run python scripts/set_version.py > build/covid-19-test-result.json",
     "serve": "node_modules/.bin/speccy serve build/covid-19-test-result.json",
-    "check-licenses": "node_modules/.bin/license-checker --failOn GPL --failOn LGPL"
+    "check-licenses": "node_modules/.bin/license-checker --failOn GPL --failOn LGPL",
+    "smoke-test": "jest tests/smoke"
   },
   "author": "NHS Digital",
   "license": "MIT",
@@ -15,11 +16,13 @@
     "speccy": "^0.11.0"
   },
   "devDependencies": {
+    "apigeetool": "^0.14.2",
+    "bent": "^7.3.12",
+    "jest": "^26.6.3",
+    "license-checker": "^25.0.1",
+    "minimist": "^1.2.2",
     "newman": "^4.5.7",
     "newman-reporter-html": "^1.0.5",
-    "newman-reporter-htmlextra": "^1.11.3",
-    "apigeetool": "^0.14.2",
-    "license-checker": "^25.0.1",
-    "minimist": "^1.2.2"
+    "newman-reporter-htmlextra": "^1.20.3"
   }
 }
