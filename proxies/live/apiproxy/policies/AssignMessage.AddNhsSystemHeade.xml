@@ -1,0 +1,9 @@
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AssignMessage.AddNhsSystemHeade">
+  <Add>
+      <Headers>
+          <Header name="NHSD-Nhs-System">{jwt.DecodeJWT.FromExternalIdToken.decoded.claim.requesting_system}</Header>
+      </Headers>
+  </Add>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>
