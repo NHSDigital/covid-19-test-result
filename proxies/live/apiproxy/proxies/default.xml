@@ -1,9 +1,9 @@
 <ProxyEndpoint name="default">
   <PreFlow name="AccessTokenVerification">
     <Request>
-      <Step>
+      <!-- <Step>
         <Name>OauthV2.VerifyAccessToken</Name>
-      </Step>
+      </Step> -->
       <Step>
           <Name>KeyValueMapOperations.GetVariables</Name>
       </Step>
