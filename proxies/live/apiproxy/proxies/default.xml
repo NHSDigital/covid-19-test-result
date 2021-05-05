@@ -2,10 +2,6 @@
   <PreFlow name="AccessTokenVerification">
     <Request>
       <Step>
-        <Name>RaiseFault.MethodNotAllowed</Name>
-        <Condition>request.verb != "GET"</Condition>
-      </Step>
-      <Step>
         <Name>OauthV2.VerifyAccessToken</Name>
       </Step>
       <Step>
@@ -56,7 +52,6 @@
       <Condition>(proxy.pathsuffix MatchesPath "/_status") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
     </Flow>
   </Flows>
-  <PreFlow/>
   <PostClientFlow name="PostClientFlow">
     <Response>
       <Step>

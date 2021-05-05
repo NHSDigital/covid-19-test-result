@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OAuthV2 async="false" continueOnError="false" enabled="true" name="OauthV2.VerifyAccessToken">
-  <DisplayName>Verify Access Token</DisplayName>
   <Operation>VerifyAccessToken</Operation>
+  <Scope>urn:nhsd:apim:app:level3:covid-19-test-result</Scope>
 </OAuthV2>
