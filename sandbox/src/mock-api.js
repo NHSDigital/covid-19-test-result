@@ -39,7 +39,7 @@ app.get("/FHIR/R4/Observation", (req, res) => {
       total: 0,
       entry: [],
     };
-  
+
     res.send(responseBody);
   } else {
     let responseBody = {
@@ -63,8 +63,7 @@ app.get("/FHIR/R4/Observation", (req, res) => {
             ],
             status: "final",
             subject: {
-              reference: "Patient/3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              type: "Patient",
+              reference: `Patient/${req.query["patient.identifier"].split("|")[1]}`,
               identifier: [
                 {
                   system: "https://fhir.nhs.uk/Id/nhs-number",
@@ -77,7 +76,7 @@ app.get("/FHIR/R4/Observation", (req, res) => {
                 system: "http://snomed.info/sct",
                 code: "871562009",
                 display: "Detection of Severe acute respiratory syndrome coronavirus 2 (observable entity)"
-              }]  
+              }]
             },
             effectiveDateTime: "2020-09-23T13:00:08.476+00:00",
             valueCodeableConcept: {
@@ -147,7 +146,7 @@ app.get("/FHIR/R4/Observation", (req, res) => {
                 system: "http://snomed.info/sct",
                 code: "871562009",
                 display: "Detection of Severe acute respiratory syndrome coronavirus 2 (observable entity)"
-              }]  
+              }]
             },
             effectiveDateTime: "2020-09-23T13:00:08.476+00:00",
             valueCodeableConcept: {
