@@ -4,7 +4,7 @@ tags:
   - name: Observation
 info:
   version: v1.0.82-alpha
-  title: COVID-19 Test Results FHIR API
+  title: COVID-19 Test History API
   license:
     name: MIT
   contact:
@@ -98,6 +98,10 @@ info:
     * is open access, so does not allow you to test authorisation
     
     For details of sandbox test scenarios, or to try out the sandbox using our 'Try this API' feature, see the documentation for each endpoint.
+
+    Alternatively, you can try out the sandbox using our Postman collection:
+    
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/009a5a908c34dba5a62a)
 
     ### Integration testing
     Our [integration test environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#integration-testing):
