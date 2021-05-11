@@ -42,3 +42,5 @@ extends:
         make_spec_visible: true
       - environment: internal-qa-sandbox
         proxy_path: sandbox
+      - environment: ref
+        make_spec_visible: true
