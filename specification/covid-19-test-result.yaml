@@ -390,3 +390,19 @@ components:
               extension: {}
             search:
               mode: match
+          - resource:
+              resourceType: Patient
+              id: 1234567890
+              identifier:
+                extension:
+                  - url: "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-NHSNumberVerificationStatus"
+                    valueCodeableConcept:
+                    coding:
+                    - system: "https://fhir.hl7.org.uk/CodeSystem/UKCore-NHSNumberVerificationStatus"
+                      code: "01"
+                      display: "Number present and verified"
+                system: "https://fhir.nhs.uk/Id/nhs-number"
+                value: 1234567890
+              birthDate: '1988-08-08T00:00:00.0000000'
+              search:
+                mode: include
