@@ -85,11 +85,12 @@ info:
     - the NHS number in the identity token must match the NHS number for which data is being requested
 
     ## Environments and testing
-    | Environment       | Base URL                                                               |
-    | ----------------- | ---------------------------------------------------------------------- |
-    | Sandbox           | `https://internal-dev-sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4` |
-    | Integration test  | `https://internal-dev.api.service.nhs.uk/covid-19-test-result/FHIR/R4`         |
-    | Production        | Not yet available                                                      |
+    | Environment       | Base URL                                                               | Connected to NHS Login        |
+    | ----------------- | ---------------------------------------------------------------------- | ----------------------------- |
+    | Sandbox           | `https://sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4`      | None                          |
+    | Development       | `https://dev.api.service.nhs.uk/covid-19-test-result/FHIR/R4`          | NHS Login - Sandpit           |
+    | Integration       | `https://int.api.service.nhs.uk/covid-19-test-result/FHIR/R4`          | NHS Login - Integration (aos) |
+    | Production        | Not yet available                                                      | NHS Login - Live (production) |
 
     ### Sandbox testing
     Our [sandbox environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing):
@@ -117,10 +118,12 @@ info:
     
     Details to follow.
 servers:
-  - url: 'https://internal-qa-sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
-    description: Internal Sandbox environment
-  - url: 'https://internal-qa.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
-    description: Internal Integration environment
+  - url: 'https://sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
+    description: Sandbox environment
+  - url: 'https://dev.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
+    description: Development environment
+  - url: 'https://int.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
+    description: Integration environment
 paths:
   /Observation:
     get:
@@ -193,6 +196,13 @@ paths:
           schema:
             type: string
             example: '871562009'
+        - in: query
+          name: _include
+          description: Adds Patient resource to the search response.
+          required: false
+          schema:
+            type: string
+            example: 'Observation:patient'
       responses:
         '200':
           description: Valid request that returns all accredited systems found that match the search criteria (which may be 0).
@@ -208,201 +218,137 @@ paths:
                 type: object
                 example:
                   resourceType: Bundle
-                  id: 1a420b58-5b91-4706-9a7c-90028ca79ff3
-                  meta:
-                    lastUpdated: '2021-01-20T12:46:07.830000+00:00'
                   type: searchset
                   total: 2
                   entry:
-                    - fullUrl: 'https://test-results-api.nhs.uk/R4/Observation/eb89a392-5b20-11eb-ae93-0242ac130002'
+                    - fullUrl: 'https://test-results-api.nhs.uk/FHIR/R4/Observation/ASD32145123'
                       resource:
                         resourceType: Observation
                         id: ASD32145123
+                        status: final
                         identifier:
                           - system: 'https://fhir.nhs.uk/Id/SpecimenId'
                             value: ASD32145123
-                        status: final
                         subject:
                           reference: Patient/1234567890
-                          type: Patient
                           identifier:
-                            - system: 'https://fhir.nhs.uk/Id/nhs-number'
-                              value: '1234567890'
+                            system: 'https://fhir.nhs.uk/Id/nhs-number'
+                            value: '1234567890'
                         code:
                           coding:
                             - system: 'http://snomed.info/sct'
                               code: '871562009'
                               display: Detection of Severe acute respiratory syndrome coronavirus 2 (observable entity)
-                        effectiveDateTime: '2020-09-23T13:00:08.476000+00:00'
+                        effectiveDateTime: '2021-04-20T00:00:00.0000000Z'
                         valueCodeableConcept:
                           coding:
                             - system: 'http://snomed.info/sct'
-                              code: '1240581000000104'
-                              display: SARS-CoV-2 (severe acute respiratory syndrome coronavirus 2) detection result positive
-                          text: SARS-CoV-2-ORGY
-                        method:
-                          coding:
-                            - system: 'http://snomed.info/sct'
-                              code: '1240471000000102'
-                              display: Measurement of Severe acute respiratory syndrome coronavirus 2 antigen (observable entity)
+                              code: '1322791000000100'
+                              display: SARS-CoV-2 (severe acute respiratory syndrome coronavirus 2) antigen detection result negative
                         device:
                           identifier:
-                            - system: 'https://fhir.nhs.uk/Id/Covid19-TestKit'
-                              value: LFT
-                              display: Lateral Flow Test
-                        performer: {}
-                        extension: {}
+                            system: 'https://fhir.nhs.uk/Id/Covid19-TestKit'
+                            value: LFT
+                          display: Lateral Flow Test
+                        performer:
+                        - type: Organization
+                          identifier:
+                            type:
+                              coding:
+                              - system: https://fhir.nhs.uk/CodeSystem/organisation-role
+                                code: '173'
+                                display: PATHOLOGY LAB
+                            value: LFDSelfTest
+                        - type: Organization
+                          identifier:
+                            type:
+                              text: Testing Centre
+                            value: BBC
+                        extension:
+                        - url: https://fhir.nhs.uk/StructureDefinition/Extension-COVID19-TestResult
+                          extension:
+                          - url: reportOrigin
+                            valueCodeableConcept:
+                              text: LEADER
+                          - url: administrationMethod
+                            valueCodeableConcept:
+                              text: health_care_professional
                       search:
                         mode: match
-                    - fullUrl: 'https://test-results-api.nhs.uk/R4/Observation/05ac9ea0-5b21-11eb-ae93-0242ac130002'
+                    - fullUrl: 'https://test-results-api.nhs.uk/FHIR/R4/Observation/ASD3214444'
                       resource:
                         resourceType: Observation
-                        id: 05ac9ea0-5b21-11eb-ae93-0242ac130002
+                        id: ASD3214444
+                        status: final
                         identifier:
                           - system: 'https://fhir.nhs.uk/Id/SpecimenId'
                             value: ASD32145127
-                        status: final
                         subject:
                           reference: Patient/1234567890
-                          type: Patient
                           identifier:
-                            - system: 'https://fhir.nhs.uk/Id/nhs-number'
-                              value: '1234567890'
+                            system: 'https://fhir.nhs.uk/Id/nhs-number'
+                            value: '1234567890'
                         code:
                           coding:
                             - system: 'http://snomed.info/sct'
                               code: '871562009'
                               display: Detection of Severe acute respiratory syndrome coronavirus 2 (observable entity)
-                        effectiveDateTime: '2020-09-23T13:00:08.476000+00:00'
+                        effectiveDateTime: '2021-04-20T00:00:00.0000000Z'
                         valueCodeableConcept:
                           coding:
                             - system: 'http://snomed.info/sct'
                               code: '1240581000000104'
                               display: SARS-CoV-2 (severe acute respiratory syndrome coronavirus 2) detection result positive
-                          text: SARS-CoV-2-ORGY
-                        method:
-                          coding:
-                            - system: 'http://snomed.info/sct'
-                              code: '1240471000000102'
-                              display: Measurement of Severe acute respiratory syndrome coronavirus 2 antigen (observable entity)
                         device:
                           identifier:
-                            - system: 'https://fhir.nhs.uk/Id/Covid19-TestKit'
-                              value: LFT
-                              display: Lateral Flow Test
-                        performer: {}
-                        extension: {}
+                            system: 'https://fhir.nhs.uk/Id/Covid19-TestKit'
+                            value: LFT
+                          display: Lateral Flow Test
+                        performer:
+                        - type: Organization
+                          identifier:
+                            type:
+                              coding:
+                              - system: https://fhir.nhs.uk/CodeSystem/organisation-role
+                                code: '173'
+                                display: PATHOLOGY LAB
+                            value: LFDSelfTest
+                        - type: Organization
+                          identifier:
+                            type:
+                              text: Testing Centre
+                            value: BBC
+                        extension:
+                        - url: https://fhir.nhs.uk/StructureDefinition/Extension-COVID19-TestResult
+                          extension:
+                          - url: reportOrigin
+                            valueCodeableConcept:
+                              text: LEADER
+                          - url: administrationMethod
+                            valueCodeableConcept:
+                              text: health_care_professional
                       search:
                         mode: match
+                    - fullUrl: https://dev.api.service.nhs.uk/covid-19-test-result/FHIR/R4/Patient/9686368973
+                      resource:
+                        resourceType: Patient
+                        id: '9686368973'
+                        identifier:
+                        - extension:
+                          - url: https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-NHSNumberVerificationStatus
+                            valueCodeableConcept:
+                              coding:
+                              - system: https://fhir.hl7.org.uk/CodeSystem/UKCore-NHSNumberVerificationStatus
+                                code: '01'
+                                display: Number present and verified
+                          system: https://fhir.nhs.uk/Id/nhs-number
+                          value: '9686368973'
+                        birthDate: '1997-12-28'
+                      search:
+                        mode: include
         '400':
           description: Missing or invalid query parameter(s).
         '401':
           description: Missing or invalid ID/OAuth toke or NHS number in request doesn't match NHS number in ID token.
         '404':
           description: Invalid endpoint path.
-components:
-  schemas:
-    observationExample:
-      type: object
-      example:
-        resourceType: Bundle
-        id: 1a420b58-5b91-4706-9a7c-90028ca79ff3
-        meta:
-          lastUpdated: '2021-01-20T12:46:07.830000+00:00'
-        type: searchset
-        total: 2
-        entry:
-          - resource:
-              resourceType: Observation
-              id: ASD32145123
-              identifier:
-                - system: 'https://fhir.nhs.uk/Id/SpecimenId'
-                  value: ASD32145123
-              status: final
-              subject:
-                reference: Patient/1234567890
-                type: Patient
-                identifier:
-                  - system: 'https://fhir.nhs.uk/Id/nhs-number'
-                    value: '1234567890'
-              code:
-                coding:
-                  - system: 'http://snomed.info/sct'
-                    code: '871562009'
-                    display: Detection of Severe acute respiratory syndrome coronavirus 2 (observable entity)
-              effectiveDateTime: '2020-09-23T13:00:08.476000+00:00'
-              valueCodeableConcept:
-                coding:
-                  - system: 'http://snomed.info/sct'
-                    code: '1240581000000104'
-                    display: SARS-CoV-2 (severe acute respiratory syndrome coronavirus 2) detection result positive
-                text: SARS-CoV-2-ORGY
-              method:
-                coding:
-                  - system: 'http://snomed.info/sct'
-                    code: '1240471000000102'
-                    display: Measurement of Severe acute respiratory syndrome coronavirus 2 antigen (observable entity)
-              device:
-                identifier:
-                  - system: 'https://fhir.nhs.uk/Id/Covid19-TestKit'
-                    value: LFT
-                    display: Lateral Flow Test
-              performer: {}
-              extension: {}
-            search:
-              mode: match
-          - resource:
-              resourceType: Observation
-              id: 05ac9ea0-5b21-11eb-ae93-0242ac130002
-              identifier:
-                - system: 'https://fhir.nhs.uk/Id/SpecimenId'
-                  value: ASD32145127
-              status: final
-              subject:
-                reference: Patient/1234567890
-                type: Patient
-                identifier:
-                  - system: 'https://fhir.nhs.uk/Id/nhs-number'
-                    value: '1234567890'
-              code:
-                coding:
-                  - system: 'http://snomed.info/sct'
-                    code: '871562009'
-                    display: Detection of Severe acute respiratory syndrome coronavirus 2 (observable entity)
-              effectiveDateTime: '2020-09-23T13:00:08.476000+00:00'
-              valueCodeableConcept:
-                coding:
-                  - system: 'http://snomed.info/sct'
-                    code: '1240581000000104'
-                    display: SARS-CoV-2 (severe acute respiratory syndrome coronavirus 2) detection result positive
-                text: SARS-CoV-2-ORGY
-              method:
-                coding:
-                  - system: 'http://snomed.info/sct'
-                    code: '1240471000000102'
-                    display: Measurement of Severe acute respiratory syndrome coronavirus 2 antigen (observable entity)
-              device:
-                identifier:
-                  - system: 'https://fhir.nhs.uk/Id/Covid19-TestKit'
-                    value: LFT
-                    display: Lateral Flow Test
-              performer: {}
-              extension: {}
-            search:
-              mode: match
-          - resource:
-              resourceType: Patient
-              id: 1234567890
-              identifier:
-                extension:
-                  - url: "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-NHSNumberVerificationStatus"
-                    valueCodeableConcept:
-                    coding:
-                    - system: "https://fhir.hl7.org.uk/CodeSystem/UKCore-NHSNumberVerificationStatus"
-                      code: "01"
-                      display: "Number present and verified"
-                system: "https://fhir.nhs.uk/Id/nhs-number"
-                value: 1234567890
-              birthDate: '1988-08-08T00:00:00.0000000'
-              search:
-                mode: include
