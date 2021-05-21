@@ -12,4 +12,5 @@ test('observations endpoint should return HTTP 200 with correct data', async () 
   expect(obj.entry[0].subject.reference).toBe("Patient/firstName1-lastName1");
   expect(obj.entry[0].identifier[0].value).toBe("ZZZ00000001");
   expect(obj.entry[0].device.identifier.value).toBe("LFT");
+
 });
