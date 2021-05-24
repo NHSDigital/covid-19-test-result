@@ -110,6 +110,7 @@ info:
     * includes authorisation using the NHS Sandpit
 
     Available test NHS patients:
+
     | NHS number        |
     | ----------------- |
     | 9686368973        |
@@ -123,6 +124,7 @@ info:
     * includes authorisation
          
     Available test NHS patients:
+    
     | NHS number        |
     | ----------------- |
     | 9658477860        |
