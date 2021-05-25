@@ -26,6 +26,7 @@ APIGEE_ENVIRONMENTS:
     display_name: Integration Testing
   - name: prod
     display_name: Production
+    approval_type: manual
     ratelimit: '210000pm'
     quota: '210000'
 ---
@@ -41,10 +42,11 @@ apigee:
 {% for ENV in APIGEE_ENVIRONMENTS %}
 {% set TITLE = PRODUCT_DISPLAY_NAME + '(' + ENV.display_name + ' Environment)' %}
 {% set NAME = SERVICE_NAME + '-' + ENV.name %}
+{% set approval_type = ENV.approval_type | default('manual' if ENV.name == 'prod' else 'auto') %}
   - name: {{ ENV.name }}
     products:
       - name: {{ NAME }}
-        approvalType: auto
+        approvalType: {{ approval_type }}
         attributes:
           - name: access
             value: public
