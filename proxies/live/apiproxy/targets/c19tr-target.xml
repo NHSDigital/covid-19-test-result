@@ -93,6 +93,7 @@
       </Step>
       <Step>
         <Name>Quota</Name>
+      </Step>
       <Step> 
         <Name>SpikeArrest</Name>   
       </Step>
@@ -105,13 +106,6 @@
       </Step>
       <Step>
         <Name>Javascript.AddClientRPDetailsHeader</Name>
-      </Step>
-      <Step>
-        <Name>Quota</Name>
-      </Step>
-      <Step>
-        <Name>SpikeArrest</Name>
-      </Step>
       </Step>
     </Request>
   </PreFlow>
