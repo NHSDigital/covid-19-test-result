@@ -104,12 +104,32 @@ info:
     
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/009a5a908c34dba5a62a)
 
+    ### Development testing
+    Our development  environment:
+    * is for early development testing
+    * includes authorisation using the NHS Sandpit
+
+    Available test NHS patients:
+
+    | NHS number        |
+    | ----------------- |
+    | 9686368973        |
+    | 9686368906        |
+    | 9658218873        |
+    | 9658218881        |
+
     ### Integration testing
     Our [integration test environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#integration-testing):
     * is for formal integration testing
     * includes authorisation
          
-    Currently, the integration test environment is not fully available.
+    Available test NHS patients:
+    
+    | NHS number        |
+    | ----------------- |
+    | 9658477860        |
+    | 9437573999        |
+    | 9453634980        |
     
     For more details see [integration testing with our RESTful APIs](https://digital.nhs.uk/developer/guides-and-documentation/testing#integration-testing-with-our-restful-apis).
 
@@ -191,11 +211,11 @@ paths:
             example: ge2010-01-01&date=le2011-12-31
         - in: query
           name: code
-          description: The SNOMED code related to the observation type.
+          description: The SNOMED code related to the observation type. It support a single value or comma seperated values (e.g. 871555000,871553007) [List of available codes](https://simplifier.net/guide/NHSDigitalClinical/ObservationDefinition2)
           required: false
           schema:
             type: string
-            example: '871562009'
+            example: '871553007'
         - in: query
           name: _include
           description: Adds Patient resource to the search response.
