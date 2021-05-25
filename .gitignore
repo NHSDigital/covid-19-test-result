@@ -12,3 +12,5 @@ __pycache__/
 .envrc
 .idea/
 truststore/
+*.pem
+*.key
