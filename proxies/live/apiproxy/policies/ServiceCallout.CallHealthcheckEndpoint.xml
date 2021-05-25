@@ -11,7 +11,7 @@
             <Enabled>true</Enabled>
         </SSLInfo>
         <LoadBalancer>
-            <Server name="ig3"/>
+            <Server name="covid19-test-results" />
         </LoadBalancer>
         <Path>/healthcheck</Path>
     </HTTPTargetConnection>
