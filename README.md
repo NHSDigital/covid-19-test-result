@@ -25,7 +25,6 @@ The contents of this repository are protected by Crown Copyright (C).
 * make
 * nodejs + npm/yarn
 * [poetry](https://github.com/python-poetry/poetry)
-* Java 8+
 
 ### Install
 ```
