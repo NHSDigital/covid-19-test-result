@@ -4,8 +4,8 @@ DESCRIPTION: This API will return a list of antibody and antigen (PCR and LFT) C
 APIGEE_ENVIRONMENTS:
   - name: internal-dev
     display_name: Internal Development
-    ratelimit: '210000pm'
-    quota: '210000'
+    ratelimit: '300000pm'
+    quota: '300000'
   - name: internal-dev-sandbox
     display_name: Internal Development Sandbox
   - name: internal-qa
@@ -14,8 +14,8 @@ APIGEE_ENVIRONMENTS:
     display_name: Internal QA Sandbox
   - name: ref
     display_name: Reference
-    ratelimit: '210000pm'
-    quota: '210000'
+    ratelimit: '300000pm'
+    quota: '300000'
   - name: sandbox
     display_name: Sandbox
   - name: dev
@@ -27,8 +27,8 @@ APIGEE_ENVIRONMENTS:
   - name: prod
     display_name: Production
     approval_type: manual
-    ratelimit: '210000pm'
-    quota: '210000'
+    ratelimit: '300000pm'
+    quota: '300000'
 ---
 meta:
   api:
