@@ -1,0 +1,50 @@
+description: FHIR Bundle containing the query results - a list of matching COVID-19 test results and optionally associated patients.
+type: object
+required:
+  - resourceType
+  - type
+  - total
+  - entry
+properties:
+  resourceType:
+    description: FHIR resource type. Always `Bundle`.
+    type: string
+    example: "Bundle"
+  type:
+    description: Indicates how the bundle is intended to be used. Always `searchset`.
+    type: string
+    example: "searchset"
+  total:
+    description: Number of matching COVID-19 test results found.
+    type: integer
+    example: 2
+  entry:
+    description: List of matching COVID-19 test results and associated patients. If there were no matching tests, this is an empty list.
+    type: array
+    items:
+      type: object
+      required:
+        - fullUrl
+        - resource
+        - search
+      properties:
+        fullUrl:
+          description: URI for the Observation or Patient resource.
+          type: string
+          example: "urn:uuid:edea022a-2d81-11eb-adc1-0242ac120001"
+        resource:
+          description: The Observation or Patient resource.
+          oneOf:
+            - $ref: observation-schema.yaml
+            - $ref: patient-schema.yaml
+        search:
+          description: Search-related information for the Observation or Patient resource.
+          type: object
+          required:
+            - mode
+          properties:
+            mode:
+              description: Indicates why this resource is in the result set. For Observation resources this is always `match` and for Patient resources it is always `include`.
+              enum:
+                - match
+                - include

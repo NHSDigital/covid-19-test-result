@@ -1,0 +1,33 @@
+description: Demographic information about the patient whose tests are retrieved.
+type: object
+required:
+  - resourceType
+  - identifier
+  - birthDate
+properties:
+  resourceType:
+    description: FHIR resource type. Always `Patient`.
+    type: string
+    example: "Patient"
+  identifier:
+    description: Unique identifier for this patient. Always an NHS number.
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required:
+        - system
+        - value
+      properties:
+        system:
+          description: Coding system used to identify patients.
+          type: string
+          example: "https://fhir.nhs.uk/Id/nhs-number"
+        value:
+          description: Code identifying the patient.
+          type: string
+          example: "9912003888"
+  birthDate:
+    description: Patient's date of birth.
+    type: string
+    example: "1965-02-28"

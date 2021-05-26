@@ -1,0 +1,68 @@
+description: COVID-19 test results extensions to cover elements not defined in standard FHIR.
+type: array
+minItems: 1
+maxItems: 1
+items:
+  type: object
+  required:
+    - url
+    - extension
+  properties:
+    url:
+      description: URI for the type of extension. Always `https://fhir.nhs.uk/StructureDefinition/Extension-COVID19-TestResult`.
+      type: string
+      example: "https://fhir.nhs.uk/StructureDefinition/Extension-COVID19-TestResult"
+    extension:
+      type: array
+      minItems: 1
+      maxItems: 2
+      items:
+        oneOf:
+          - type: object
+            description: Source of record creation.
+            required:
+              - url
+              - valueCodeableConcept
+            properties:
+              url:
+                description: Always `reportOrigin`
+                type: string
+              valueCodeableConcept:
+                type: object
+                required:
+                  - text
+                properties:
+                  text:
+                    description: Unique indentifier of the source.
+                    type: string
+                    enum:
+                      - admin
+                      - bulk
+                      - electiveCare
+                      - home
+                      - lite
+                      - liteSelf
+                      - user
+                      - assistedExistingBarcode
+                    example: electiveCare
+          - type: object
+            description: Used to convey how the test was administered.
+            required:
+              - url
+              - valueCodeableConcept
+            properties:
+              url:
+                description: Always `administrationMethod`.
+                type: string
+              valueCodeableConcept:
+                type: object
+                required:
+                  - text
+                properties:
+                  text:
+                    description: Unique indentifier of the admin method.
+                    type: string
+                    enum:
+                      - self
+                      - health_care_professional
+                    example: health_care_professional
