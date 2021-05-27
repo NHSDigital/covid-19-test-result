@@ -1,0 +1,29 @@
+type: object
+description: Test Centre identifier.
+required:
+  - type
+  - identifier
+properties:
+  type:
+    description: Always `Organization`.
+    type: string
+    example: Organization
+  identifier:
+    type: object
+    required:
+      - type
+      - value
+    properties:
+      type:
+        type: object
+        required:
+          - text
+        properties:
+          text:
+            description: Always `Testing Centre`
+            type: string
+            example: Testing Centre
+      value:
+        description: Unique identifier of the Testing Centre.
+        type: string
+        example: "BBC"

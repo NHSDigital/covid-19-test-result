@@ -1,0 +1,48 @@
+type: object
+description: Laboratory code
+required:
+  - type
+  - identifier
+properties:
+  type:
+    description: Always `Organization`.
+    type: string
+    example: Organization
+  identifier:
+    type: object
+    required:
+      - type
+      - value
+    properties:
+      type:
+        type: object
+        required:
+          - coding
+        properties:
+          coding:
+            type: array
+            minItems: 1
+            maxItems: 1
+            items:
+              type: object
+              required:
+                - system
+                - code
+                - display
+              properties:
+                system:
+                  description: Coding system used to describe laboratory type. Always `https://fhir.nhs.uk/CodeSystem/organisation-role`.
+                  type: string
+                  example: "https://fhir.nhs.uk/CodeSystem/organisation-role"
+                code:
+                  description: Code for the laboratory type within system. Always `173`.
+                  type: string
+                  example: "173"
+                display:
+                  description: Always `PATHOLOGY LAB`.
+                  type: string
+                  example: PATHOLOGY LAB
+      value:
+        description: Unique identifier of the pathology lab.
+        type: string
+        example: "MK"
