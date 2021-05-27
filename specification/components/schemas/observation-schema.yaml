@@ -46,7 +46,7 @@ properties:
       reference:
         description: URI for the associated Patient resource in the bundle.
         type: string
-        example: "Patient/1234567890"
+        example: "Patient/9912003888"
       type:
         description: Type of resource this reference refers to. Always `Patient`.
         type: string
@@ -65,7 +65,7 @@ properties:
           value:
             description: Value in coding system representing linked patient.
             type: string
-            example: "1234567890"
+            example: "9912003888"
   code:
     description: "The category of test result. Describes COVID-19 detection method."
     type: object
