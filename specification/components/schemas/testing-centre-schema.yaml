@@ -15,7 +15,6 @@ properties:
       - value
     properties:
       type:
-        description:
         type: object
         required:
           - text

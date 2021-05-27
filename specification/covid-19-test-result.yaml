@@ -148,6 +148,8 @@ paths:
   /Observation:
     get:
       summary: Get COVID-19 test history
+      tags:
+        - Observation
       operationId: get-covid-test-history
       description: |
         Given an NHS number, get the patient's COVID-19 test history.
@@ -232,10 +234,10 @@ paths:
               description: 'The X-Correlation-ID from the request header, if supplied, mirrored back.'
           content:
             application/fhir+json:
-              example:
-                $ref: "components/examples/observation-bundle-example.json"
               schema:
                 $ref: "components/schemas/observation-bundle-schema.yaml"
+              example:
+                $ref: "components/examples/observation-bundle-example.json"
 
         '400':
           description: Missing or invalid query parameter(s).
