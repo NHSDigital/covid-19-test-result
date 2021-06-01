@@ -1,4 +1,4 @@
-description: Demographic information about the patient whose tests are retrieved.
+description: Observation result related to the requested patient.
 type: object
 required:
   - resourceType
