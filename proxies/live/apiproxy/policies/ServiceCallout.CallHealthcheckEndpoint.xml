@@ -13,7 +13,7 @@
         <LoadBalancer>
             <Server name="covid19-test-results" />
         </LoadBalancer>
-        <Path>/_status2</Path>
+        <Path>/_status</Path>
     </HTTPTargetConnection>
     <Timeout>20000</Timeout>
 </ServiceCallout>
