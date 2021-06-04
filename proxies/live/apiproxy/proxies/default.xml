@@ -33,10 +33,10 @@
         <Step>
           <Name>KeyValueMapOperations.GetSecureVariables</Name>
         </Step>
-        <Step>
+        <!-- <Step>
           <Condition>request.header.apikey = null or private.common.status-endpoint-api-key != request.header.apikey</Condition>
           <Name>RaiseFault.401Unauthorized</Name>
-        </Step>
+        </Step> -->
         <Step>
           <Name>ServiceCallout.CallHealthcheckEndpoint</Name>
         </Step>
