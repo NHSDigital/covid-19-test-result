@@ -2,7 +2,7 @@ from typing import List
 from uuid import uuid4
 from time import time, sleep
 import pytest
-from tests import conftest
+from smoke import conftest
 from aiohttp import ClientResponse
 from api_test_utils import env
 from api_test_utils import poll_until
@@ -55,7 +55,28 @@ async def test_observation_happy_path(test_app, api_client: APISessionClient, au
     authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app)
 
     async with api_client.get(
-        _base_valid_uri("0000000001")
+        _base_valid_uri("0000000001"),
+        headers=authorised_headers,
+        allow_retries=True
+    ) as resp:
+        assert resp.status == 200
+        body = await resp.json()
+        assert "x-correlation-id" in resp.headers, resp.headers
+        assert resp.headers["x-correlation-id"] == correlation_id
+        assert body["resourceType"] == "Bundle", body
+        # TODO verify data
+        # assert len(body["entry"]) == 0, body
+
+@pytest.mark.smoketestsandbox
+@pytest.mark.asyncio
+async def test_observation_happy_path_sandbox(test_app, api_client: APISessionClient, authorised_headers):
+
+    correlation_id = str(uuid4())
+    authorised_headers["X-Correlation-ID"] = correlation_id
+    authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app)
+
+    async with api_client.get(
+        _base_valid_uri("0000000001"),
         headers=authorised_headers,
         allow_retries=True
     ) as resp:
