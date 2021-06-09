@@ -17,7 +17,7 @@ steps:
       export ID_TOKEN_NHS_LOGIN_PRIVATE_KEY_ABSOLUTE_PATH="$(Pipeline.Workspace)/secrets/$(ID_TOKEN_NHS_LOGIN_PRIVATE_KEY)"
       export APIGEE_API_TOKEN="$(secret.AccessToken)"
 
-      poetry run pytest tests/smoke -v --junitxml=smoketest-report.xml -s -m smoketest
+      poetry run pytest tests/smoke -v --junitxml=smoketestsandbox-report.xml -s -m smoketestsandbox
     workingDirectory: $(Pipeline.Workspace)/s/$(SERVICE_NAME)/$(SERVICE_ARTIFACT_NAME)
     displayName: run smoketests
 
@@ -25,5 +25,5 @@ steps:
     displayName: 'Publish smoketest results'
     condition: always()
     inputs:
-      testResultsFiles: '$(Pipeline.Workspace)/s/$(SERVICE_NAME)/$(SERVICE_ARTIFACT_NAME)/smoketest-report.xml'
+      testResultsFiles: '$(Pipeline.Workspace)/s/$(SERVICE_NAME)/$(SERVICE_ARTIFACT_NAME)/smoketestsandbox-report.xml'
       failTaskOnFailedTests: true

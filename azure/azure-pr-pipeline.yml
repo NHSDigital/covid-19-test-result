@@ -46,4 +46,4 @@ extends:
       - environment: internal-dev-sandbox
         proxy_path: sandbox
         post_deploy:
-          - template: ./templates/run-smoke-tests.yml
+          - template: ./templates/run-sandbox-smoke-tests.yml
