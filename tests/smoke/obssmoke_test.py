@@ -52,7 +52,7 @@ async def test_observation_happy_path(test_app, api_client: APISessionClient, au
 
     correlation_id = str(uuid4())
     authorised_headers["X-Correlation-ID"] = correlation_id
-    authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app)
+    authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app, nhs_number="0000000001")
 
     async with api_client.get(
         _base_valid_uri("0000000001"),
@@ -69,11 +69,10 @@ async def test_observation_happy_path(test_app, api_client: APISessionClient, au
 
 @pytest.mark.smoketestsandbox
 @pytest.mark.asyncio
-async def test_observation_happy_path_sandbox(test_app, api_client: APISessionClient, authorised_headers):
-
+async def test_observation_happy_path_sandbox(test_app, api_client: APISessionClient):
+    authorised_headers = {}
     correlation_id = str(uuid4())
     authorised_headers["X-Correlation-ID"] = correlation_id
-    authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app)
 
     async with api_client.get(
         _base_valid_uri("0000000001"),

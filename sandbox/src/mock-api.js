@@ -13,7 +13,8 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 app.get("/_ping", (req, res) => {
-  res.send({});
+  res.set('Content-Type', 'application/json');
+  res.send({'response':'This is the _ping API'});
 });
 
 app.get("/_status", (req, res) => {
@@ -26,6 +27,9 @@ app.get("/FHIR/R4/Observation", (req, res) => {
 
   if (!req.query["patient.identifier"] | !nhsNumber.test(req.query["patient.identifier"])) {
     res.sendStatus(400);
+    return;
+  } else {
+    res.set('Content-Type', 'application/json');
   }
 
   const nhsNumberNotFoundPattern = "^https:\/\/fhir.nhs.uk\/Id\/nhs-number[|]1000000000$";

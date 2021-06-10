@@ -130,6 +130,7 @@ def nhs_login_id_token(
     test_app: ApigeeApiDeveloperApps,
     id_token_claims: dict = None,
     id_token_headers: dict = None,
+    nhs_number: str = None
 ) -> str:
 
     default_id_token_claims = {
@@ -145,7 +146,7 @@ def nhs_login_id_token(
         "jti": str(uuid4()),
         "identity_proofing_level": "P9",
         "birthdate": "1939-09-26",
-        "nhs_number": "9912003888",
+        "nhs_number": nhs_number,
         "nonce": "randomnonce",
         "surname": "CARTHY",
         "vot": "P9.Cp.Cd",
