@@ -38,14 +38,27 @@ extends:
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true
+        secret_file_ids:
+          - ptl/app-credentials/jwt_testing/non-prod/JWT_TESTING_PRIVATE_KEY
+          - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_NHS_LOGIN_PRIVATE_KEY
+        post_deploy:
+          - template: ./templates/run-smoke-tests.yml
       - environment: internal-dev-sandbox
         proxy_path: sandbox
+        post_deploy:
+          - template: ./templates/run-sandbox-smoke-tests.yml
       - environment: internal-qa
         make_spec_visible: true
+        post_deploy:
+          - template: ./templates/run-smoke-tests.yml
       - environment: internal-qa-sandbox
         proxy_path: sandbox
+        post_deploy:
+          - template: ./templates/run-sandbox-smoke-tests.yml
       - environment: ref
         make_spec_visible: true
+        post_deploy:
+          - template: ./templates/run-smoke-tests.yml
         depends_on:
           - internal_qa
           - internal_qa_sandbox
@@ -53,16 +66,22 @@ extends:
         proxy_path: sandbox
       - environment: dev
         make_spec_visible: true
+        post_deploy:
+          - template: ./templates/run-smoke-tests.yml
         depends_on:
           - internal_qa
           - internal_qa_sandbox
       - environment: int
         make_spec_visible: true
+        post_deploy:
+          - template: ./templates/run-smoke-tests.yml
         depends_on:
           - internal_qa
           - internal_qa_sandbox
       - environment: prod
         make_spec_visible: true
+        post_deploy:
+          - template: ./templates/run-smoke-tests.yml
         depends_on:
           - internal_qa
           - internal_qa_sandbox
