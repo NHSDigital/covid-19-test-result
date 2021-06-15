@@ -24,12 +24,6 @@
         <Name>AssignMessage.MissingOrInvalidIssClaim</Name>
       </Step>
     </FaultRule>
-    <FaultRule name="missing_invalid_identity_proofing_level">
-      <Condition>(JWT.failed Equals true) AND (error.message Equals "Invalid Claim: policy(VerifyJWT.FromExternalIdToken) claim(identity_proofing_level)")</Condition>
-      <Step>
-        <Name>AssignMessage.MissingOrInvalidIdentityProofingLevelClaim</Name>
-      </Step>
-    </FaultRule>
     <FaultRule name="missing_invalid_typ_header">
       <Condition>(JWT.failed Equals true) AND (error.message Equals "Invalid Claim: policy(VerifyJWT.FromExternalIdToken) claim(typ)")</Condition>
       <Step>
