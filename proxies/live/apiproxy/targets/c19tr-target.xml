@@ -95,9 +95,9 @@
       First set to least-privilege (application restricted) then look for scopes indicating higher privilege, overwriting as appropriate.
       'scope' is a space-separated string of scopes, determined by the Application's API Product assignments.
       Follow pattern used in AssignMessage.SetAccessModeUserRestricted condition. See Apigee docs for JavaRegex gotchas (uses '.match()' behaviour matching whole string only). -->
-      <Step>
+      <!--<Step>
         <Name>AssignMessage.SetAccessModeApplicationRestricted</Name>
-      </Step>
+      </Step>-->
       <Step>
         <Name>Javascript.AddClientRPDetailsHeader</Name>
       </Step>
