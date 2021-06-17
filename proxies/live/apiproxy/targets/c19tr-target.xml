@@ -86,6 +86,12 @@
         <Name>VerifyJWT.FromExternalIdToken</Name>
       </Step>
       <Step>
+        <Name>AccessEntity.GetApp</Name>
+      </Step>
+      <Step>
+        <Name>ExtractVariables.GetProofingLevel</Name>
+      </Step>
+      <Step>
         <Name>Quota</Name>
       </Step>
       <Step>
