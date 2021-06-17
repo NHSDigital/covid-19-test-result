@@ -1,7 +1,4 @@
 <OAuthV2 async="false" continueOnError="false" enabled="true" name="OauthV2.VerifyAccessToken">
   <Operation>VerifyAccessToken</Operation>
-  <Scopes>
-    <Scope>urn:nhsd:apim:app:level3:covid-19-test-result urn:nhsd:apim:user-nhs-login:P5:covid-19-test-result</Scope>
-    <Scope>urn:nhsd:apim:app:level3:covid-19-test-result urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result</Scope>
-  </Scopes>
+  <Scope>urn:nhsd:apim:app:level3:covid-19-test-result urn:nhsd:apim:user-nhs-login:P5:covid-19-test-result</Scope> <Scope>urn:nhsd:apim:app:level3:covid-19-test-result urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result</Scope>
 </OAuthV2>
