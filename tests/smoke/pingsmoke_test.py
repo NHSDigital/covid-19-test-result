@@ -7,7 +7,7 @@ from api_test_utils.api_test_session_config import APITestSessionConfig
 from api_test_utils import poll_until, env
 
 
-async def _is_deployed(resp: ClientResponse, api_test_config: APITestSessionConfig) -> bool:
+async def _is_ping_deployed(resp: ClientResponse, api_test_config: APITestSessionConfig) -> bool:
 
     if resp.status != 200:
         return False
@@ -15,6 +15,13 @@ async def _is_deployed(resp: ClientResponse, api_test_config: APITestSessionConf
 
     return body.get("commitId") == api_test_config.commit_id
 
+async def _is_status_deployed(resp: ClientResponse, api_test_config: APITestSessionConfig) -> bool:
+
+    if resp.status != 200:
+        return False
+    body = await resp.json()
+
+    return body.get("commitId") == api_test_config.commit_id and body.get("status") == "pass"
 
 async def is_401(resp: ClientResponse) -> bool:
     return resp.status == 401
@@ -37,7 +44,7 @@ async def test_wait_for_ping(api_client: APISessionClient, api_test_config: APIT
         is available
     """
 
-    is_deployed = partial(_is_deployed, api_test_config=api_test_config)
+    is_deployed = partial(_is_ping_deployed, api_test_config=api_test_config)
 
     await poll_until(
         make_request=lambda: api_client.get('_ping'),
@@ -69,7 +76,7 @@ async def test_wait_for_status(api_client: APISessionClient, api_test_config: AP
         is available
     """
 
-    is_deployed = partial(_is_deployed, api_test_config=api_test_config)
+    is_deployed = partial(_is_status_deployed, api_test_config=api_test_config)
 
     await poll_until(
         make_request=lambda: api_client.get('_status', headers={'apikey': env.status_endpoint_api_key()}),
