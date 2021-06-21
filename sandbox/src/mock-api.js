@@ -105,14 +105,12 @@ app.get("/FHIR/R4/Observation", (req, res) => {
               ],
             },
             device: {
-              identifier: [
-                {
-                  system: "https://fhir.nhs.uk/Id/Covid19-TestKit",
-                  value: "LFT",
-                  display: "Lateral Flow Test",
-                },
-              ],
-            },
+              identifier: {
+                system: "https://fhir.nhs.uk/Id/Covid19-TestKit",
+                value: "rtPCR"
+              },
+              display: "rtPCR"
+            }
             // performer: {
             //   //ToDo: New field in the doc (New ticket is needed) (check if ticket is created with Richard) (different epic)
             // },
@@ -175,14 +173,12 @@ app.get("/FHIR/R4/Observation", (req, res) => {
               ],
             },
             device: {
-              identifier: [
-                {
-                  system: "https://fhir.nhs.uk/Id/Covid19-TestKit",
-                  value: "LFT",
-                  display: "Lateral Flow Test",
-                },
-              ],
-            },
+              identifier: {
+                system: "https://fhir.nhs.uk/Id/Covid19-TestKit",
+                value: "LFT"
+              },
+              display: "LFT"
+            }
             // performer: {
             //   //ToDo: as above
             // },
