@@ -178,35 +178,3 @@ def nhs_login_id_token(
     )
 
     return id_token_jwt
-
-
-# async def get_token_nhs_login_token_exchange(test_app: ApigeeApiDeveloperApps,
-#                                              subject_token_claims: dict = None,
-#                                              client_assertion_jwt: dict = None):
-#     """Call identity server to get an access token"""
-#     if client_assertion_jwt is not None:
-#         client_assertion_jwt = test_app.oauth.create_jwt(kid="test-1",
-#                                                          claims=client_assertion_jwt)
-#     else:
-#         client_assertion_jwt = test_app.oauth.create_jwt(kid="test-1")
-
-#     if subject_token_claims is not None:
-#         id_token_jwt = nhs_login_id_token(test_app=test_app,
-#                                           id_token_claims=subject_token_claims)
-#     else:
-#         id_token_jwt = nhs_login_id_token(test_app=test_app)
-
-#     # When
-#     token_resp = await test_app.oauth.get_token_response(
-#         grant_type="token_exchange",
-#         data={
-#             "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
-#             "subject_token_type": "urn:ietf:params:oauth:token-type:id_token",
-#             "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-#             "subject_token": id_token_jwt,
-#             "client_assertion": client_assertion_jwt,
-#         },
-#     )
-#     assert token_resp["status_code"] == 200
-#     assert list(token_resp["body"].keys()) == ["access_token", "expires_in", "token_type", "issued_token_type"]
-#     return token_resp["body"]
