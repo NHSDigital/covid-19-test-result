@@ -36,7 +36,7 @@ def authorised_headers(valid_access_token):
     return {"Authorization": f"Bearer {valid_access_token}"}
 
 
-@pytest.mark.e2e
+@pytest.mark.e2etest
 @pytest.mark.smoketest
 @pytest.mark.asyncio
 async def test_check_observation_is_secured(api_client: APISessionClient):
@@ -45,8 +45,7 @@ async def test_check_observation_is_secured(api_client: APISessionClient):
         assert resp.status == 401
 
 
-@pytest.mark.e2e
-@pytest.mark.smoketest
+@pytest.mark.e2etest
 @pytest.mark.asyncio
 async def test_observation_happy_path(test_app, api_client: APISessionClient, authorised_headers):
 
