@@ -36,7 +36,7 @@ info:
 
     ## Who can use this API
     This API:
-    - is only for use by patient/citizen-facing applications
+    - is only for use by patient-facing applications
     - is only for non-clinical use
     - can only be used where there is a legal basis to do so
 
@@ -82,7 +82,7 @@ info:
     - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
     
     Note that:
-    - the end user must be a citizen
+    - the end user must be a patient
     - the calling application must strongly authenticate the end user using NHS login
     - specifically, the end user must have their identity verified to 'high' (P9) level
     - the calling application must pass the user's NHS login identity token in the `NHSD-User-Identity` header when calling the API
@@ -179,7 +179,7 @@ paths:
         - name: NHSD-User-Identity
           in: header
           description: |
-            Open ID Connect ID token for the end user citizen, as obtained from NHS login.
+            Open ID Connect ID token for the end user patient, as obtained from NHS login.
             Must be a signed JWT in the format `xxxxx.yyyyy.zzzzz`.
             Must be valid i.e. not expired.
             Must be for a user who has had their identity verified to 'high' (P9) level.
