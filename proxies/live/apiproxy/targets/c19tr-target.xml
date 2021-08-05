@@ -113,7 +113,6 @@
       <Step>
         <Name>SpikeArrest</Name>
       </Step>
-<!--TODO: should we remove AssignMessage.SetAccessModeApplicationRestricted-->
       <!-- Set flow variable 'access-mode' by inspecting the token's scopes.
       First set to least-privilege (application restricted) then look for scopes indicating higher privilege, overwriting as appropriate.
       'scope' is a space-separated string of scopes, determined by the Application's API Product assignments.
