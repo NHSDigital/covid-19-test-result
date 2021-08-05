@@ -137,9 +137,6 @@
           <Name>AssignMessage.AddUserIdHeader</Name>
         </Step>
         <Step>
-          <Name>AssignMessage.AddNhsNumberHeader</Name>
-        </Step>
-        <Step>
           <Name>AssignMessage.AddNhsSystemHeader</Name>
         </Step>
       </Request>
