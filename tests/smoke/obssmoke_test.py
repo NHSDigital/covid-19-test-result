@@ -1,6 +1,6 @@
 from typing import List
 from uuid import uuid4
-from time import time, sleep
+from time import time
 import pytest
 from smoke import conftest
 from aiohttp import ClientResponse
