@@ -1,9 +1,0 @@
-<AssignMessage async="false" continueOnError="true" enabled="true" name="AssignMessage.AddNhsNumberHeader">
-  <Add>
-      <Headers>
-          <Header name="NHSD-Nhs-Number">https://fhir.nhs.uk/Id/nhs-number|{jwt.DecodeJWT.FromExternalIdToken.decoded.claim.nhs_number}</Header>
-      </Headers>
-  </Add>
-  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
-  <AssignTo createNew="false" transport="http" type="request"/>
-</AssignMessage>
