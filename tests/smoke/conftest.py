@@ -27,26 +27,38 @@ def get_env(variable_name: str) -> str:
 def api_test_config() -> APITestSessionConfig:
     return APITestSessionConfig()
 
+_BASE_CUSTOM_ATTRIBUTES = {
+    "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json"  # noqa
+}
 
-@pytest.yield_fixture(scope="session")
-def test_app():
+@pytest.fixture(scope="session")
+def base_test_app():
     """Setup & Teardown an app-restricted app for this api"""
     app = ApigeeApiDeveloperApps()
     loop = asyncio.new_event_loop()
     loop.run_until_complete(
         app.setup_app(
             api_products=[get_env("APIGEE_PRODUCT")],
-            custom_attributes={
-                "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json"  # noqa
-            },
+            custom_attributes=_BASE_CUSTOM_ATTRIBUTES,
         )
     )
     app.oauth = OauthHelper(app.client_id, app.client_secret, app.callback_url)
     yield app
     loop.run_until_complete(app.destroy_app())
 
+def _reset_app_custom_attributes(app, loop=None):
+    loop = loop or asyncio.new_event_loop()
+    loop.run_until_complete(
+        app.set_custom_attributes(_BASE_CUSTOM_ATTRIBUTES)
+    )
 
-@pytest.yield_fixture()
+@pytest.fixture()
+def test_app(base_test_app):
+    _reset_app_custom_attributes(base_test_app)
+    yield base_test_app
+
+
+@pytest.fixture()
 def test_product_and_app():
     """Setup & Teardown an product and app for this api"""
     product = ApigeeApiProducts()
@@ -59,9 +71,7 @@ def test_product_and_app():
     loop.run_until_complete(
         app.setup_app(
             api_products=[product.name],
-            custom_attributes={
-                "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json" # noqa
-            },
+            custom_attributes=_BASE_CUSTOM_ATTRIBUTES,
         )
     )
     app.oauth = OauthHelper(app.client_id, app.client_secret, app.callback_url)
@@ -70,7 +80,7 @@ def test_product_and_app():
     loop.run_until_complete(product.destroy_product())
 
 
-@pytest.yield_fixture(scope="session")
+@pytest.fixture(scope="session")
 def test_product():
     """Setup & Teardown an product for this api"""
     product = ApigeeApiProducts()
@@ -102,26 +112,30 @@ async def get_token(
 
 
 @pytest.fixture(scope="session")
-def valid_access_token(test_app) -> str:
+def valid_access_token(base_test_app) -> str:
     oauth_proxy = get_env("OAUTH_PROXY")
     oauth_base_uri = get_env("OAUTH_BASE_URI")
     token_url = f"{oauth_base_uri}/{oauth_proxy}/token"
 
-    jwt = test_app.oauth.create_jwt(
+    loop = asyncio.new_event_loop()
+
+    _reset_app_custom_attributes(base_test_app, loop)
+
+    jwt = base_test_app.oauth.create_jwt(
         **{
             "kid": "test-1",
             "claims": {
-                "sub": test_app.client_id,
-                "iss": test_app.client_id,
+                "sub": base_test_app.client_id,
+                "iss": base_test_app.client_id,
                 "jti": str(uuid4()),
                 "aud": token_url,
                 "exp": int(time()) + 60,
             },
         }
     )
-    loop = asyncio.new_event_loop()
+
     token = loop.run_until_complete(
-        get_token(test_app, grant_type="client_credentials", _jwt=jwt)
+        get_token(base_test_app, grant_type="client_credentials", _jwt=jwt)
     )
     return token["access_token"]
 
@@ -178,3 +192,34 @@ def nhs_login_id_token(
     )
 
     return id_token_jwt
+
+async def get_token_nhs_login_token_exchange(test_app: ApigeeApiDeveloperApps,
+                                             subject_token_claims: dict = None,
+                                             client_assertion_jwt: dict = None):
+    """Call identity server to get an access token"""
+    if client_assertion_jwt is not None:
+        client_assertion_jwt = test_app.oauth.create_jwt(kid="test-1",
+                                                         claims=client_assertion_jwt)
+    else:
+        client_assertion_jwt = test_app.oauth.create_jwt(kid="test-1")
+
+    if subject_token_claims is not None:
+        id_token_jwt = nhs_login_id_token(test_app=test_app,
+                                          id_token_claims=subject_token_claims)
+    else:
+        id_token_jwt = nhs_login_id_token(test_app=test_app)
+
+    # When
+    token_resp = await test_app.oauth.get_token_response(
+        grant_type="token_exchange",
+        data={
+            "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:id_token",
+            "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+            "subject_token": id_token_jwt,
+            "client_assertion": client_assertion_jwt,
+        },
+    )
+    assert token_resp["status_code"] == 200
+    assert list(token_resp["body"].keys()) == ["access_token", "expires_in", "token_type", "issued_token_type"]
+    return token_resp["body"]
