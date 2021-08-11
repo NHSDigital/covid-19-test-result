@@ -59,7 +59,6 @@ apigee:
           - name: ratelimit
             value: {{ ENV.ratelimit | default('300pm') }}
         scopes:
-          - 'urn:nhsd:apim:app:level3:{{ SERVICE_NAME }}'
           - 'urn:nhsd:apim:user-nhs-login:P9:{{ SERVICE_NAME }}'
           - 'urn:nhsd:apim:user-nhs-login:P5:{{ SERVICE_NAME }}'
         quota: {{ ENV.quota | default('300') }}
@@ -82,20 +81,20 @@ apigee:
           - 'urn:nhsd:apim:app:level3:{{ SERVICE_NAME }}'
           - 'urn:nhsd:apim:user-nhs-login:P9:{{ SERVICE_NAME }}'
           - 'urn:nhsd:apim:user-nhs-login:P5:{{ SERVICE_NAME }}'
-      - name: {{ NAME }}-application-restricted
-        displayName: {{ TITLE }} Application-Restricted
-        description: {{ DESCRIPTION }}
-        approvalType: {{ approval_type }}
-        environments: [ {{ ENV.name }} ]
-        proxies:
-          - {{ SERVICE_NAME }}-{{ ENV.name }}
-        attributes:
-          - name: access
-            value: public
-          - name: ratelimit
-            value: {{ ENV.ratelimit | default('300pm') }}
-        scopes:
-          - 'urn:nhsd:apim:app:level3:{{ SERVICE_NAME }}'
+      # - name: {{ NAME }}-application-restricted
+      #   displayName: {{ TITLE }} Application-Restricted
+      #   description: {{ DESCRIPTION }}
+      #   approvalType: {{ approval_type }}
+      #   environments: [ {{ ENV.name }} ]
+      #   proxies:
+      #     - {{ SERVICE_NAME }}-{{ ENV.name }}
+      #   attributes:
+      #     - name: access
+      #       value: public
+      #     - name: ratelimit
+      #       value: {{ ENV.ratelimit | default('300pm') }}
+      #   scopes:
+      #     - 'urn:nhsd:apim:app:level3:{{ SERVICE_NAME }}'
     specs:
       - name: {{ NAME }}
         path: {{ SERVICE_NAME }}.json
