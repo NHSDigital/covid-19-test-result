@@ -105,7 +105,7 @@ async def test_observation_happy_path_sandbox(test_app, api_client: APISessionCl
         assert body["entry"][0]["resource"]["device"]["identifier"]["value"] == "rtPCR"
         assert body["entry"][0]["resource"]["device"]["display"] == "rtPCR"
 
-@pytest.mark.smoketestsandbox
+@pytest.mark.e2e
 @pytest.mark.asyncio
 async def test_token_exchange_happy_path(api_client: APISessionClient, test_product_and_app):
 
@@ -132,13 +132,13 @@ async def test_token_exchange_happy_path(api_client: APISessionClient, test_prod
         # no data for this nhs number ...
         assert len(body["entry"]) == 0, body
 
-@pytest.mark.smoketestsandbox
+@pytest.mark.e2e
 @pytest.mark.asyncio
 async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: APISessionClient, test_product_and_app):
 
     test_product, test_app = test_product_and_app
     await test_product.update_scopes(
-        ["urn:nhsd:apim:user-nhs-login:P8:covid-19-test-result"]
+        ["urn:nhsd:apim:user-nhs-login:P8:immunisation-history"]
     )
     subject_token_claims = {
         "identity_proofing_level": "P8"
@@ -174,7 +174,7 @@ async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: 
             "resourceType": "OperationOutcome"
         }
 
-@pytest.mark.smoketestsandbox
+@pytest.mark.e2e
 @pytest.mark.asyncio
 async def test_token_exchange_both_header_and_exchange(api_client: APISessionClient,
                                                        test_product_and_app,
