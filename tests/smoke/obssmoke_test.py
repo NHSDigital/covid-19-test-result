@@ -138,7 +138,7 @@ async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: 
 
     test_product, test_app = test_product_and_app
     await test_product.update_scopes(
-        ["urn:nhsd:apim:user-nhs-login:P8:immunisation-history"]
+        ["urn:nhsd:apim:user-nhs-login:P8:covid-19-test-result"]
     )
     subject_token_claims = {
         "identity_proofing_level": "P8"
