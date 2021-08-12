@@ -30,6 +30,23 @@ def _base_valid_uri(nhs_number) -> str:
 def _valid_uri(nhs_number, procedure_code) -> str:
     return _base_valid_uri(nhs_number) + f"&procedure-code:below={procedure_code}"
 
+def assert_body(body):
+    assert body["resourceType"] == "Bundle", body
+    assert len(body["entry"]) == 1
+    assert body["entry"][0]["resource"]["resourceType"] == "Observation"
+    assert body["entry"][0]["resource"]["id"] == "FAKEFORTESTS1"
+    assert body["entry"][0]["resource"]["code"]["coding"][0]["code"] == "871555000"
+    assert body["entry"][0]["resource"]["subject"]["reference"] == "Patient/9999999990"
+    assert body["entry"][0]["resource"]["effectiveDateTime"] == "2021-05-29T13:23:10.000Z"
+    assert body["entry"][0]["resource"]["valueCodeableConcept"]["coding"][0]["code"] == "1321691000000102"
+    assert body["entry"][0]["resource"]["valueCodeableConcept"]["text"] == "SARS-CoV-2-ORGU"
+    assert body["entry"][0]["resource"]["identifier"][0]["value"] == "FAKEFORTESTS1"
+    assert body["entry"][0]["resource"]["device"]["identifier"]["value"] == "rtPCR"
+    assert body["entry"][0]["resource"]["device"]["display"] == "rtPCR"
+    assert body["entry"][0]["resource"]["performer"][0]["type"] == "Organization"
+    assert body["entry"][0]["resource"]["performer"][0]["identifier"]["value"] == "NP"
+    assert body["entry"][0]["resource"]["extension"][0]["extension"][1]["url"] == "administrationMethod"
+    assert body["entry"][0]["resource"]["extension"][0]["extension"][1]["valueCodeableConcept"]["text"] == "health_care_professional"
 
 @pytest.fixture(scope='function')
 def authorised_headers(valid_access_token):
@@ -62,22 +79,37 @@ async def test_observation_happy_path(test_app, api_client: APISessionClient, au
         body = await resp.json()
         assert "x-correlation-id" in resp.headers, resp.headers
         assert resp.headers["x-correlation-id"] == correlation_id
-        assert body["resourceType"] == "Bundle", body
-        assert len(body["entry"]) == 1
-        assert body["entry"][0]["resource"]["resourceType"] == "Observation"
-        assert body["entry"][0]["resource"]["id"] == "FAKEFORTESTS1"
-        assert body["entry"][0]["resource"]["code"]["coding"][0]["code"] == "871555000"
-        assert body["entry"][0]["resource"]["subject"]["reference"] == "Patient/9999999990"
-        assert body["entry"][0]["resource"]["effectiveDateTime"] == "2021-05-29T13:23:10.000Z"
-        assert body["entry"][0]["resource"]["valueCodeableConcept"]["coding"][0]["code"] == "1321691000000102"
-        assert body["entry"][0]["resource"]["valueCodeableConcept"]["text"] == "SARS-CoV-2-ORGU"
-        assert body["entry"][0]["resource"]["identifier"][0]["value"] == "FAKEFORTESTS1"
-        assert body["entry"][0]["resource"]["device"]["identifier"]["value"] == "rtPCR"
-        assert body["entry"][0]["resource"]["device"]["display"] == "rtPCR"
-        assert body["entry"][0]["resource"]["performer"][0]["type"] == "Organization"
-        assert body["entry"][0]["resource"]["performer"][0]["identifier"]["value"] == "NP"
-        assert body["entry"][0]["resource"]["extension"][0]["extension"][1]["url"] == "administrationMethod"
-        assert body["entry"][0]["resource"]["extension"][0]["extension"][1]["valueCodeableConcept"]["text"] == "health_care_professional"
+        assert_body(body)
+
+
+@pytest.mark.e2etest
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    'test_app',
+    [
+        {
+            'suffixes': ['-application-restricted']
+        },
+        {
+            'suffixes': ['-application-restricted', '-user-restricted']
+        }
+    ],
+    indirect=True
+)
+async def test_client_credentials_happy_path(test_app, api_client: APISessionClient, authorised_headers):
+    correlation_id = str(uuid4())
+    authorised_headers["X-Correlation-ID"] = correlation_id
+
+    async with api_client.get(
+        _base_valid_uri("9999999990"),
+        headers=authorised_headers,
+        allow_retries=True
+    ) as resp:
+        assert resp.status == 200
+        body = await resp.json()
+        assert "x-correlation-id" in resp.headers, resp.headers
+        assert resp.headers["x-correlation-id"] == correlation_id
+        assert_body(body)
 
 @pytest.mark.smoketestsandbox
 @pytest.mark.asyncio
@@ -105,7 +137,7 @@ async def test_observation_happy_path_sandbox(test_app, api_client: APISessionCl
         assert body["entry"][0]["resource"]["device"]["identifier"]["value"] == "rtPCR"
         assert body["entry"][0]["resource"]["device"]["display"] == "rtPCR"
 
-@pytest.mark.e2e
+@pytest.mark.e2etest
 @pytest.mark.asyncio
 async def test_token_exchange_happy_path(api_client: APISessionClient, test_product_and_app):
 
@@ -132,7 +164,7 @@ async def test_token_exchange_happy_path(api_client: APISessionClient, test_prod
         # no data for this nhs number ...
         assert len(body["entry"]) == 0, body
 
-@pytest.mark.e2e
+@pytest.mark.e2etest
 @pytest.mark.asyncio
 async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: APISessionClient, test_product_and_app):
 
@@ -174,7 +206,7 @@ async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: 
             "resourceType": "OperationOutcome"
         }
 
-@pytest.mark.e2e
+@pytest.mark.e2etest
 @pytest.mark.asyncio
 async def test_token_exchange_both_header_and_exchange(api_client: APISessionClient,
                                                        test_product_and_app,

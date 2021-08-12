@@ -22,6 +22,8 @@ def get_env(variable_name: str) -> str:
     except KeyError:
         raise RuntimeError(f"Variable is not set, Check {variable_name}.")
 
+def get_product_names(suffixes) -> List[str]:
+    return [f'{get_env("APIGEE_PRODUCT")}{suffix}' for suffix in suffixes]
 
 @pytest.fixture(scope="session")
 def api_test_config() -> APITestSessionConfig:
