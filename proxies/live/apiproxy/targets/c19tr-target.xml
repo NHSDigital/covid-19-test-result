@@ -68,7 +68,7 @@
       </Step>
       <!-- If the token was retrieved via token exchange, assign the jwt from the token attributes to the NHSD-User-Identity Header -->
       <Step>
-        <Name>AssignMessage.AddUserIdHeader</Name>
+        <Name>AssignMessage.AddUserIdHeaderIdToken</Name>
         <Condition>accesstoken.grant_type = "urn:ietf:params:oauth:grant-type:token-exchange"</Condition>
       </Step>
       <!-- JWT Header Flow START-->
