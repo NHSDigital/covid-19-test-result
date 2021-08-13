@@ -69,7 +69,7 @@ def test_product_and_app():
     loop = asyncio.new_event_loop()
     loop.run_until_complete(product.create_new_product())
     loop.run_until_complete(product.update_scopes(
-        ["urn:nhsd:apim:app:level3:covid-19-test-result", "urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result"]
+        ["urn:nhsd:apim:app:level3:covid-19-test-result", "urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result", "urn:nhsd:apim:user-nhs-login:P5:covid-19-test-result"]
     ))
     loop.run_until_complete(
         app.setup_app(
