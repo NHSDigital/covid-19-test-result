@@ -2,6 +2,7 @@
 import asyncio
 from time import time
 from uuid import uuid4
+from typing import List
 import os
 
 import pytest

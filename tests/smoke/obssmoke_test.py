@@ -111,6 +111,105 @@ async def test_client_credentials_happy_path(test_app, api_client: APISessionCli
         assert resp.headers["x-correlation-id"] == correlation_id
         assert_body(body)
 
+@pytest.mark.e2etest
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    'test_app',
+    [
+        {
+            'suffixes': ['-user-restricted']
+        },
+        {
+            'suffixes': ['-application-restricted']
+        }
+    ],
+    indirect=True
+)
+async def test_no_auth_bearer_token_provided(test_app, api_client: APISessionClient):
+    await asyncio.sleep(1)  # Add delay to tests to avoid 429 on service callout
+    correlation_id = str(uuid4())
+    headers = {
+        "Authorization": "Bearer",
+        "X-Correlation-ID": correlation_id
+    }
+    async with api_client.get(
+        _base_valid_uri("9999999990"),
+        headers=headers,
+        allow_retries=True
+    ) as resp:
+        assert resp.status == 401, 'failed getting backend data'
+        body = await resp.json()
+        assert "x-correlation-id" in resp.headers, resp.headers
+        assert resp.headers["x-correlation-id"] == correlation_id
+        assert body["issue"] == [
+            {'code': 'forbidden', 'diagnostics': 'Provided access token is invalid', 'severity': 'error'}
+            ], body
+
+@pytest.mark.e2etest
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    'test_app',
+    [
+        {
+            'suffixes': ['-user-restricted'],
+            'requested_proofing_level': 'P9',
+            'identity_proofing_level': 'P9'
+        },
+        {
+            'suffixes': ['-user-restricted'],
+            'requested_proofing_level': 'P5',
+            'identity_proofing_level': 'P9'
+        },
+        {
+            'suffixes': ['-user-restricted'],
+            'requested_proofing_level': 'P5',
+            'identity_proofing_level': 'P5'
+        },
+        {
+            'suffixes': ['-application-restricted', '-user-restricted'],
+            'requested_proofing_level': 'P9',
+            'identity_proofing_level': 'P9'
+        },
+        {
+            'suffixes': ['-application-restricted', '-user-restricted'],
+            'requested_proofing_level': 'P5',
+            'identity_proofing_level': 'P9'
+        },
+        {
+            'suffixes': ['-application-restricted', '-user-restricted'],
+            'requested_proofing_level': 'P5',
+            'identity_proofing_level': 'P5'
+        },
+    ],
+    indirect=True
+)
+async def test_token_exchange_happy_path(test_app, api_client: APISessionClient):
+    subject_token_claims = {
+        'identity_proofing_level': test_app.request_params['identity_proofing_level']
+    }
+    token_response = await conftest.get_token_nhs_login_token_exchange(
+        test_app,
+        subject_token_claims=subject_token_claims
+    )
+    token = token_response["access_token"]
+
+    correlation_id = str(uuid4())
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "X-Correlation-ID": correlation_id
+    }
+
+    async with api_client.get(
+        _base_valid_uri("9999999990"),
+        headers=headers,
+        allow_retries=True
+    ) as resp:
+        assert resp.status == 200, 'failed getting backend data'
+        body = await resp.json()
+        assert "x-correlation-id" in resp.headers, resp.headers
+        assert resp.headers["x-correlation-id"] == correlation_id
+        assert_body(body)
+
 @pytest.mark.smoketestsandbox
 @pytest.mark.asyncio
 async def test_observation_happy_path_sandbox(test_app, api_client: APISessionClient):
@@ -152,7 +251,7 @@ async def test_token_exchange_happy_path(api_client: APISessionClient, test_prod
     }
 
     async with api_client.get(
-        _valid_uri("9912003888", "90640007"),
+        _base_valid_uri("9999999990"),
         headers=headers,
         allow_retries=True
     ) as resp:
@@ -160,9 +259,7 @@ async def test_token_exchange_happy_path(api_client: APISessionClient, test_prod
         body = await resp.json()
         assert "x-correlation-id" in resp.headers, resp.headers
         assert resp.headers["x-correlation-id"] == correlation_id
-        assert body["resourceType"] == "Bundle", body
-        # no data for this nhs number ...
-        assert len(body["entry"]) == 0, body
+        assert_body(body)
 
 @pytest.mark.e2etest
 @pytest.mark.asyncio
@@ -186,7 +283,7 @@ async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: 
     }
 
     async with api_client.get(
-        _valid_uri("9912003888", "90640007"),
+        _base_valid_uri("9999999990"),
         headers=headers,
         allow_retries=True
     ) as resp:
@@ -223,7 +320,7 @@ async def test_token_exchange_both_header_and_exchange(api_client: APISessionCli
     authorised_headers["Authorization"] = f"Bearer {token}"
 
     async with api_client.get(
-        _valid_uri("9912003888", "90640007"),
+        _base_valid_uri("9999999990"),
         headers=authorised_headers,
         allow_retries=True
     ) as resp:
@@ -231,6 +328,4 @@ async def test_token_exchange_both_header_and_exchange(api_client: APISessionCli
         body = await resp.json()
         assert "x-correlation-id" in resp.headers, resp.headers
         assert resp.headers["x-correlation-id"] == correlation_id
-        assert body["resourceType"] == "Bundle", body
-        # no data for this nhs number ...
-        assert len(body["entry"]) == 0, body
+        assert_body(body)
