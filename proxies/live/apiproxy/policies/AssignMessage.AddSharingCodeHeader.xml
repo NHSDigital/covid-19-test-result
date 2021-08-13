@@ -1,0 +1,9 @@
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AssignMessage.AddSharingCodeHeader">
+  <Add>
+      <Headers>
+          <Header name="Sharing-Code">{accesstoken.sharing_code}</Header>
+      </Headers>
+  </Add>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>
