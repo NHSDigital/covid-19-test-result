@@ -30,35 +30,31 @@ def get_product_names(suffixes) -> List[str]:
 def api_test_config() -> APITestSessionConfig:
     return APITestSessionConfig()
 
-_BASE_CUSTOM_ATTRIBUTES = {
-    "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json"  # noqa
-}
-
 @pytest.fixture(scope="session")
-def base_test_app():
+def test_app(request):
     """Setup & Teardown an app-restricted app for this api"""
+    request_params = request.param
+
+    custom_attributes = {
+        "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json",
+        "nhs-login-allowed-proofing-level": request_params.get('requested_proofing_level', '')
+    }
+
+    api_products = get_product_names(request_params['suffixes'])
+
     app = ApigeeApiDeveloperApps()
+
     loop = asyncio.new_event_loop()
     loop.run_until_complete(
         app.setup_app(
-            api_products=[get_env("APIGEE_PRODUCT")],
-            custom_attributes=_BASE_CUSTOM_ATTRIBUTES,
+            api_products=api_products,
+            custom_attributes=custom_attributes,
         )
     )
     app.oauth = OauthHelper(app.client_id, app.client_secret, app.callback_url)
+    app.request_params = request_params
     yield app
     loop.run_until_complete(app.destroy_app())
-
-def _reset_app_custom_attributes(app, loop=None):
-    loop = loop or asyncio.new_event_loop()
-    loop.run_until_complete(
-        app.set_custom_attributes(_BASE_CUSTOM_ATTRIBUTES)
-    )
-
-@pytest.fixture()
-def test_app(base_test_app):
-    _reset_app_custom_attributes(base_test_app)
-    yield base_test_app
 
 
 @pytest.fixture()
@@ -115,21 +111,19 @@ async def get_token(
 
 
 @pytest.fixture(scope="session")
-def valid_access_token(base_test_app) -> str:
+def valid_access_token(test_app) -> str:
     oauth_proxy = get_env("OAUTH_PROXY")
     oauth_base_uri = get_env("OAUTH_BASE_URI")
     token_url = f"{oauth_base_uri}/{oauth_proxy}/token"
 
     loop = asyncio.new_event_loop()
 
-    _reset_app_custom_attributes(base_test_app, loop)
-
-    jwt = base_test_app.oauth.create_jwt(
+    jwt = test_app.oauth.create_jwt(
         **{
             "kid": "test-1",
             "claims": {
-                "sub": base_test_app.client_id,
-                "iss": base_test_app.client_id,
+                "sub": test_app.client_id,
+                "iss": test_app.client_id,
                 "jti": str(uuid4()),
                 "aud": token_url,
                 "exp": int(time()) + 60,
@@ -138,7 +132,7 @@ def valid_access_token(base_test_app) -> str:
     )
 
     token = loop.run_until_complete(
-        get_token(base_test_app, grant_type="client_credentials", _jwt=jwt)
+        get_token(test_app, grant_type="client_credentials", _jwt=jwt)
     )
     return token["access_token"]
 
