@@ -1,6 +1,7 @@
 from typing import List
 from uuid import uuid4
 from time import time
+import asyncio
 import pytest
 from smoke import conftest
 from aiohttp import ClientResponse
@@ -96,9 +97,21 @@ async def test_observation_happy_path(test_app, api_client: APISessionClient, au
     ],
     indirect=True
 )
-async def test_client_credentials_happy_path(test_app, api_client: APISessionClient, authorised_headers):
+async def test_client_credentials_happy_path(test_app, api_client: APISessionClient):
+    subject_token_claims = {
+        'identity_proofing_level': test_app.request_params['identity_proofing_level']
+    }
+    token_response = await conftest.get_token_nhs_login_token_exchange(
+        test_app,
+        subject_token_claims=subject_token_claims
+    )
+    token = token_response["access_token"]
+
     correlation_id = str(uuid4())
-    authorised_headers["X-Correlation-ID"] = correlation_id
+    authorised_headers = {
+        "Authorization": f"Bearer {token}",
+        "X-Correlation-ID": correlation_id
+    }
 
     async with api_client.get(
         _base_valid_uri("9999999990"),
