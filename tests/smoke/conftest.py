@@ -26,6 +26,28 @@ def get_env(variable_name: str) -> str:
 def get_product_names(suffixes) -> List[str]:
     return [f'{get_env("APIGEE_PRODUCT")}{suffix}' for suffix in suffixes]
 
+async def get_authorised_headers(client_app):
+
+    oauth_proxy = get_env("OAUTH_PROXY")
+    oauth_base_uri = get_env("OAUTH_BASE_URI")
+    token_url = f"{oauth_base_uri}/{oauth_proxy}/token"
+
+    jwt = client_app.oauth.create_jwt(
+        **{
+            "kid": "test-1",
+            "claims": {
+                "sub": client_app.client_id,
+                "iss": client_app.client_id,
+                "jti": str(uuid4()),
+                "aud": token_url,
+                "exp": int(time()) + 60,
+            },
+        }
+    )
+
+    token = await get_token(client_app, grant_type="client_credentials", _jwt=jwt)
+    return {"Authorization": f'Bearer {token["access_token"]}'}
+
 @pytest.fixture(scope="session")
 def api_test_config() -> APITestSessionConfig:
     return APITestSessionConfig()
@@ -73,7 +95,7 @@ def test_product_and_app(request):
             api_products=[product.name],
             custom_attributes= {
                 "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json",
-                "nhs-login-allowed-proofing-level": request_params['requested_proofing_level']
+                "nhs-login-allowed-proofing-level": request_params.get('requested_proofing_level')
             },
         )
     )
@@ -146,7 +168,8 @@ def nhs_login_id_token(
     test_app: ApigeeApiDeveloperApps,
     id_token_claims: dict = None,
     id_token_headers: dict = None,
-    nhs_number: str = None
+    nhs_number: str = None,
+    allowed_proofing_level: str = 'P9'
 ) -> str:
 
     default_id_token_claims = {
@@ -160,7 +183,7 @@ def nhs_login_id_token(
         "iat": int(time()) - 10,
         "vtm": "https://auth.sandpit.signin.nhs.uk/trustmark/auth.sandpit.signin.nhs.uk",
         "jti": str(uuid4()),
-        "identity_proofing_level": "P9",
+        "identity_proofing_level": allowed_proofing_level,
         "birthdate": "1939-09-26",
         "nhs_number": nhs_number,
         "nonce": "randomnonce",
@@ -206,10 +229,15 @@ async def get_token_nhs_login_token_exchange(test_app: ApigeeApiDeveloperApps,
         client_assertion_jwt = test_app.oauth.create_jwt(kid="test-1")
 
     if subject_token_claims is not None:
-        id_token_jwt = nhs_login_id_token(test_app=test_app,
-                                          id_token_claims=subject_token_claims)
+        id_token_jwt = nhs_login_id_token(
+            test_app=test_app,
+            allowed_proofing_level=subject_token_claims.get("identity_proofing_level"),
+            id_token_claims=subject_token_claims
+        )
     else:
-        id_token_jwt = nhs_login_id_token(test_app=test_app)
+        id_token_jwt = nhs_login_id_token(
+            test_app=test_app
+        )
 
     # When
     token_resp = await test_app.oauth.get_token_response(
