@@ -65,26 +65,6 @@ async def test_check_observation_is_secured(api_client: APISessionClient):
 
 @pytest.mark.e2etest
 @pytest.mark.asyncio
-async def test_observation_happy_path(test_app, api_client: APISessionClient, authorised_headers):
-
-    correlation_id = str(uuid4())
-    authorised_headers["X-Correlation-ID"] = correlation_id
-    authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app, nhs_number="9999999990")
-
-    async with api_client.get(
-        _base_valid_uri("9999999990"),
-        headers=authorised_headers,
-        allow_retries=True
-    ) as resp:
-        assert resp.status == 200
-        body = await resp.json()
-        assert "x-correlation-id" in resp.headers, resp.headers
-        assert resp.headers["x-correlation-id"] == correlation_id
-        assert_body(body)
-
-
-@pytest.mark.e2etest
-@pytest.mark.asyncio
 @pytest.mark.parametrize(
     'test_app',
     [
@@ -225,6 +205,18 @@ async def test_token_exchange_happy_path(test_app, api_client: APISessionClient)
 
 @pytest.mark.smoketestsandbox
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    'test_app',
+    [
+        {
+            'suffixes': ['-application-restricted']
+        },
+        {
+            'suffixes': ['-application-restricted', '-user-restricted']
+        }
+    ],
+    indirect=True
+)
 async def test_observation_happy_path_sandbox(test_app, api_client: APISessionClient):
     authorised_headers = {}
     correlation_id = str(uuid4())

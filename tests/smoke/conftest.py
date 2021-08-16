@@ -58,22 +58,27 @@ def test_app(request):
 
 
 @pytest.fixture()
-def test_product_and_app():
+def test_product_and_app(request):
     """Setup & Teardown an product and app for this api"""
+    request_params = request.param
     product = ApigeeApiProducts()
     app = ApigeeApiDeveloperApps()
     loop = asyncio.new_event_loop()
     loop.run_until_complete(product.create_new_product())
     loop.run_until_complete(product.update_scopes(
-        ["urn:nhsd:apim:app:level3:covid-19-test-result", "urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result", "urn:nhsd:apim:user-nhs-login:P5:covid-19-test-result"]
+        request_params['scopes']
     ))
     loop.run_until_complete(
         app.setup_app(
             api_products=[product.name],
-            custom_attributes=_BASE_CUSTOM_ATTRIBUTES,
+            custom_attributes= {
+                "jwks-resource-url": "https://raw.githubusercontent.com/NHSDigital/identity-service-jwks/main/jwks/internal-dev/9baed6f4-1361-4a8e-8531-1f8426e3aba8.json",
+                "nhs-login-allowed-proofing-level": request_params['requested_proofing_level']
+            },
         )
     )
     app.oauth = OauthHelper(app.client_id, app.client_secret, app.callback_url)
+    app.request_params = request_params
     yield product, app
     loop.run_until_complete(app.destroy_app())
     loop.run_until_complete(product.destroy_product())
