@@ -91,6 +91,7 @@ apigee:
         environments: [ {{ ENV.name }} ]
         proxies:
           - {{ SERVICE_NAME }}-{{ ENV.name }}
+          - identity-service-{{ ENV.name }}
         attributes:
           - name: access
             value: public
