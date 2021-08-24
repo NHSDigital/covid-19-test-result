@@ -86,7 +86,14 @@ apigee:
       - name: {{ NAME }}
         path: {{ SERVICE_NAME }}.json
     api_catalog:
-      - edgeAPIProductName: {{ NAME }}
+      - edgeAPIProductName: {{ NAME }}-user-restricted
+        anonAllowed: true
+        description: {{ DESCRIPTION }}
+        requireCallbackUrl: false
+        title: {{ TITLE }}
+        visibility: true
+        specId: {{ NAME }}
+      - edgeAPIProductName: {{ NAME }}-application-restricted
         anonAllowed: true
         description: {{ DESCRIPTION }}
         requireCallbackUrl: false
