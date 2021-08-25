@@ -129,12 +129,6 @@
     <Flow name="mapApigeeParametersIntoHeader">
       <Request>
         <Step>
-          <Name>DecodeJWT.FromExternalIdToken</Name>
-        </Step>
-        <Step>
-          <Name>AssignMessage.AddAccessTokenIdHeader</Name>
-        </Step>
-        <Step>
           <Name>AssignMessage.AddApigeeClientIdHeader</Name>
         </Step>
         <Step>
@@ -148,14 +142,6 @@
         </Step>
         <Step>
           <Name>AssignMessage.AddProxyClientIpHeader</Name>
-        </Step>
-        <Step>
-          <Name>AssignMessage.AddUserIdHeaderIdToken</Name>
-          <Condition>accesstoken.grant_type = "urn:ietf:params:oauth:grant-type:token-exchange"</Condition>
-        </Step>
-        <Step>
-          <Name>AssignMessage.AddUserIdHeader</Name>
-          <Condition>accesstoken.grant_type != "urn:ietf:params:oauth:grant-type:token-exchange"</Condition>
         </Step>
         <Step>
           <Name>AssignMessage.AddNhsSystemHeader</Name>
