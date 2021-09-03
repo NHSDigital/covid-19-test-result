@@ -45,26 +45,6 @@ apigee:
 {% set approval_type = ENV.approval_type | default('manual' if ENV.name == 'prod' else 'auto') %}
   - name: {{ ENV.name }}
     products:
-      - name: {{ NAME }}
-        displayName: {{ TITLE }}
-        description: {{ DESCRIPTION }}
-        approvalType: {{ approval_type }}
-        environments: [ {{ ENV.name }} ]
-        proxies:
-          - {{ SERVICE_NAME }}-{{ ENV.name }}
-          - identity-service-{{ ENV.name }}
-        attributes:
-          - name: access
-            value: public
-          - name: ratelimit
-            value: {{ ENV.ratelimit | default('300pm') }}
-        scopes:
-          - 'urn:nhsd:apim:app:level3:{{ SERVICE_NAME }}'
-          - 'urn:nhsd:apim:user-nhs-login:P9:{{ SERVICE_NAME }}'
-          - 'urn:nhsd:apim:user-nhs-login:P5:{{ SERVICE_NAME }}'
-        quota: {{ ENV.quota | default('300') }}
-        quotaInterval: '1'
-        quotaTimeUnit: minute
       - name: {{ NAME }}-user-restricted
         displayName: {{ TITLE }} User-Restricted
         description: {{ DESCRIPTION }}
@@ -91,6 +71,7 @@ apigee:
         environments: [ {{ ENV.name }} ]
         proxies:
           - {{ SERVICE_NAME }}-{{ ENV.name }}
+          - identity-service-{{ ENV.name }}
         attributes:
           - name: access
             value: public
@@ -105,7 +86,14 @@ apigee:
       - name: {{ NAME }}
         path: {{ SERVICE_NAME }}.json
     api_catalog:
-      - edgeAPIProductName: {{ NAME }}
+      - edgeAPIProductName: {{ NAME }}-user-restricted
+        anonAllowed: true
+        description: {{ DESCRIPTION }}
+        requireCallbackUrl: false
+        title: {{ TITLE }}
+        visibility: true
+        specId: {{ NAME }}
+      - edgeAPIProductName: {{ NAME }}-application-restricted
         anonAllowed: true
         description: {{ DESCRIPTION }}
         requireCallbackUrl: false
