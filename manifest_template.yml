@@ -47,7 +47,7 @@ apigee:
     products:
       - name: {{ NAME }}-user-restricted
         displayName: {{ TITLE }} User-Restricted
-        description: {{ DESCRIPTION }}
+        description: {{ DESCRIPTION }} (User-Restricted)
         approvalType: {{ approval_type }}
         environments: [ {{ ENV.name }} ]
         proxies:
@@ -66,7 +66,7 @@ apigee:
         quotaTimeUnit: minute
       - name: {{ NAME }}-application-restricted
         displayName: {{ TITLE }} Application-Restricted
-        description: {{ DESCRIPTION }}
+        description: {{ DESCRIPTION }} (Application-Restricted)
         approvalType: {{ approval_type }}
         environments: [ {{ ENV.name }} ]
         proxies:
@@ -88,16 +88,16 @@ apigee:
     api_catalog:
       - edgeAPIProductName: {{ NAME }}-user-restricted
         anonAllowed: true
-        description: {{ DESCRIPTION }}
+        description: {{ DESCRIPTION }} (user-restricted)
         requireCallbackUrl: false
-        title: {{ TITLE }}
+        title: {{ TITLE }} user-restricted
         visibility: true
         specId: {{ NAME }}
       - edgeAPIProductName: {{ NAME }}-application-restricted
         anonAllowed: true
-        description: {{ DESCRIPTION }}
+        description: {{ DESCRIPTION }} (application-restricted)
         requireCallbackUrl: false
-        title: {{ TITLE }}
+        title: {{ TITLE }} application-restricted
         visibility: true
         specId: {{ NAME }}
 {% endfor %}
