@@ -66,6 +66,28 @@ properties:
             description: Value in coding system representing linked patient.
             type: string
             example: "9912003888"
+  category:
+    description: "The category of test result. Indicates Pillar 1 data only. Not present for Pillar 2 data."
+    type: array
+    minItems: 1
+    maxItems: 1
+    items:
+      type: object
+      required: 
+       - coding
+      properties:
+        system:
+          description: Coding system used to indicate Pillar1 data
+          type: string
+          example: "https://fhir.nhs.uk/CodeSystem/covid-test-pillar"
+        code:
+          description: Code indicating Pillar1 data.
+          type: string
+          example: "pillar-1"
+        display:
+          description: Description indicating Pillar1 data.
+          type: string
+          example: "pillar 1"
   code:
     description: "The category of test result. Describes COVID-19 detection method."
     type: object
@@ -180,3 +202,4 @@ properties:
         - $ref: 'testing-centre-schema.yaml'
   extension:
     $ref: 'c19-extension.yaml'
+    
