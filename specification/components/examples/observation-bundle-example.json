@@ -117,6 +117,15 @@
             "value": "9912003888"
           }
         },
+        "category": {
+          "coding": [
+            {
+              "system": "https://fhir.nhs.uk/CodeSystem/covid-test-pillar",
+              "code": "pillar-1",
+              "display": "pillar 1"
+            }
+          ]
+        },
         "code": {
           "coding": [
             {
