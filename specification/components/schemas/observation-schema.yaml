@@ -67,7 +67,7 @@ properties:
             type: string
             example: "9912003888"
   category:
-    description: "The category of test result. Indicates Pillar 1 data only. Not present for Pillar 2 data."
+    description: "The category of test result. Indicates Pillar of the data only"
     type: array
     minItems: 1
     maxItems: 1
@@ -84,10 +84,16 @@ properties:
           description: Code indicating Pillar1 data.
           type: string
           example: "pillar-1"
+          enum: 
+            - "pillar-1"
+            - "pillar-2"
         display:
           description: Description indicating Pillar1 data.
           type: string
           example: "pillar 1"
+          enum:
+            - 'pillar 1'
+            - 'pillar 2'
   code:
     description: "The category of test result. Describes COVID-19 detection method."
     type: object
