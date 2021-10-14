@@ -140,7 +140,7 @@ info:
     ## Onboarding
     You need to get your software approved by us before it can go live with this API. We call this onboarding. The onboarding process can sometimes be quite long, so it’s worth planning well ahead.
     
-    For further information on onboarding contact liveserviceonboarding@nhs.net.
+    For further information on onboarding contact [api.management@nhs.net](mailto:api.management@nhs.net).
 servers:
   - url: 'https://sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
     description: Sandbox environment
