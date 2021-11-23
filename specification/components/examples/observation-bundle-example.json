@@ -16,10 +16,10 @@
           }
         ],
         "subject": {
-          "reference": "Patient/9912003888",
+          "reference": "Patient/9000000009",
           "identifier": {
             "system": "https://fhir.nhs.uk/Id/nhs-number",
-            "value": "9912003888"
+            "value": "9000000009"
           }
         },
         "code": {
@@ -111,10 +111,10 @@
           }
         ],
         "subject": {
-          "reference": "Patient/9912003888",
+          "reference": "Patient/9000000009",
           "identifier": {
             "system": "https://fhir.nhs.uk/Id/nhs-number",
-            "value": "9912003888"
+            "value": "9000000009"
           }
         },
         "category": {
