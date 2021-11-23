@@ -1,7 +1,6 @@
 openapi: 3.0.0
 x-nhs-api-spec-guid: bb24463f-9f34-4c78-9f49-088cb3b9d7b4
-tags:
-  - name: Observation
+
 info:
   version: v1.0.82-alpha
   title: COVID-19 Test History API
@@ -152,8 +151,7 @@ paths:
   /Observation:
     get:
       summary: Get COVID-19 test history
-      tags:
-        - Observation
+      
       operationId: get-covid-test-history
       description: |
         Given an NHS number, get the patient's COVID-19 test history.
