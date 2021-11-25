@@ -162,7 +162,9 @@ paths:
         | Scenario                      | Request                                                              | Response                                   |
         | ----------------------------- | -------------------------------------------------------------------- | ------------------------------------------ |
         | COVID-19 test history found   | `patient.identifier`=`https://fhir.nhs.uk/Id/nhs-number\|9000000009` | HTTP Status 200 with test results data in response body |
-        | No test results found         | `patient.identifier`= anything else                                  | HTTP Status 200 with empty bundle in response body |
+        | No test results found         | `patient.identifier`=`https://fhir.nhs.uk/Id/nhs-number\|9000000033` | HTTP Status 200 with empty bundle in response body |
+        | Bad Request                   | `patient.identifier`= anything else                                  | HTTP Status 400 Bad Request |
+
         You can try out the sandbox using the 'Try this API' feature on this page.
       parameters:
         - in: header

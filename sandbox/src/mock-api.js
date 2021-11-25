@@ -35,7 +35,7 @@ app.get("/FHIR/R4/Observation", (req, res) => {
   const nhsNumberNotFoundPattern = "^https:\/\/fhir.nhs.uk\/Id\/nhs-number[|]1000000000$";
   let nhsNumberNotFound = new RegExp(nhsNumberNotFoundPattern);
 
-  if (req.query["patient.identifier"] & nhsNumberNotFound.test(req.query["patient.identifier"])) {
+  if (req.query["patient.identifier"].split("|")[1] === "9000000033") {
     let responseBody = {
       resourceType: "Bundle",
       id: "1a420b58-5b91-4706-9a7c-90028ca79ff3",
