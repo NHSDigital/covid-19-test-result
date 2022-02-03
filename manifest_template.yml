@@ -1,5 +1,5 @@
 SERVICE_NAME: covid-19-test-result
-PRODUCT_DISPLAY_NAME: COVID-19 Test Result API
+PRODUCT_DISPLAY_NAME: COVID-19 Test Results
 DESCRIPTION: This API will return a list of antibody and antigen (PCR and LFT) COVID-19 test results for a given citizen based on NHS number and optionally verified by additional demographic data.
 APIGEE_ENVIRONMENTS:
   - name: internal-dev
@@ -40,14 +40,13 @@ meta:
 apigee:
   environments:
 {% for ENV in APIGEE_ENVIRONMENTS %}
-{% set TITLE = PRODUCT_DISPLAY_NAME + '(' + ENV.display_name + ' Environment)' %}
 {% set NAME = SERVICE_NAME + '-' + ENV.name %}
 {% set approval_type = ENV.approval_type | default('manual' if ENV.name == 'prod' else 'auto') %}
   - name: {{ ENV.name }}
     products:
       - name: {{ NAME }}-user-restricted
-        displayName: {{ TITLE }} User-Restricted
-        description: {{ DESCRIPTION }} (User-Restricted)
+        displayName: {{ PRODUCT_DISPLAY_NAME }} - User Restricted ({{ ENV.display_name }} Environment)
+        description: {{ DESCRIPTION }} (User Restricted)
         approvalType: {{ approval_type }}
         environments: [ {{ ENV.name }} ]
         proxies:
@@ -65,8 +64,8 @@ apigee:
         quotaInterval: '1'
         quotaTimeUnit: minute
       - name: {{ NAME }}-application-restricted
-        displayName: {{ TITLE }} Application-Restricted
-        description: {{ DESCRIPTION }} (Application-Restricted)
+        displayName: {{ PRODUCT_DISPLAY_NAME }} - Application Restricted ({{ ENV.display_name }} Environment)
+        description: {{ DESCRIPTION }} (Application Restricted)
         approvalType: {{ approval_type }}
         environments: [ {{ ENV.name }} ]
         proxies:
@@ -90,14 +89,14 @@ apigee:
         anonAllowed: true
         description: {{ DESCRIPTION }} (user-restricted)
         requireCallbackUrl: false
-        title: {{ TITLE }} user-restricted
+        title: {{ PRODUCT_DISPLAY_NAME }} - User Restricted ({{ ENV.display_name }} Environment)
         visibility: true
         specId: {{ NAME }}
       - edgeAPIProductName: {{ NAME }}-application-restricted
         anonAllowed: true
         description: {{ DESCRIPTION }} (application-restricted)
         requireCallbackUrl: false
-        title: {{ TITLE }} application-restricted
+        title: {{ PRODUCT_DISPLAY_NAME }} - Application Restricted ({{ ENV.display_name }} Environment)
         visibility: true
         specId: {{ NAME }}
 {% endfor %}
