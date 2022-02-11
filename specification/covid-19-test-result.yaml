@@ -234,7 +234,7 @@ paths:
             example: 'Observation:patient'
       responses:
         '200':
-          description: Valid request that returns all accredited systems found that match the search criteria (which may be 0).
+          description: Valid request that returns test results history found that match the search criteria (which may be 0).
           headers:
             X-Correlation-Id:
               schema:
