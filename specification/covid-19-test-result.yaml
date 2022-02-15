@@ -11,8 +11,21 @@ info:
     url: 'https://digital.nhs.uk/developer/help-and-support'
     email: api.management@nhs.net
   description: |
-    ## Warning
-    COVID-19 Test History API is on a PRIVATE beta stage. Please contact if you want to be involved.
+  
+    <div class="nhsd-m-emphasis-box nhsd-m-emphasis-box--emphasis nhsd-!t-margin-bottom-6" aria-label="Highlighted Information">
+        <div class="nhsd-a-box nhsd-a-box--border-blue">
+            <div class="nhsd-m-emphasis-box__image-box">
+                <figure class="nhsd-a-image">
+                    <picture class="nhsd-a-image__picture">
+                        <img src="//nhs-prod.global.ssl.fastly.net/svg-magic/binaries/content/gallery/icons/info.svg?colour=231f20" alt="" style="object-fit:fill">
+                    </picture>
+                </figure>
+            </div>
+            <div class="nhsd-m-emphasis-box__content-box">
+                <div data-uipath="website.contentblock.emphasis.content" class="nhsd-t-word-break"><p class="nhsd-t-body">This API is in [private beta](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#api-status). If you want to be involved, [contact us](https://digital.nhs.uk/developer/help-and-support).</p></div>            
+            </div>
+        </div>
+    </div>
 
     ## Overview
     Use this API to access a patient’s coronavirus (COVID-19) test results history.
