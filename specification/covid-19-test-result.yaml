@@ -22,7 +22,7 @@ info:
                 </figure>
             </div>
             <div class="nhsd-m-emphasis-box__content-box">
-                <div data-uipath="website.contentblock.emphasis.content" class="nhsd-t-word-break"><p class="nhsd-t-body">This API is in [private beta](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#api-status). If you want to be involved, [contact us](https://digital.nhs.uk/developer/help-and-support).</p></div>            
+                <div data-uipath="website.contentblock.emphasis.content" class="nhsd-t-word-break"><p class="nhsd-t-body">This API is in <a href="https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#api-status">private beta</a>. If you want to be involved, <a href="https://digital.nhs.uk/developer/help-and-support">contact us</a>.</p></div>            
             </div>
         </div>
     </div>
