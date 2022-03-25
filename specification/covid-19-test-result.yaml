@@ -65,7 +65,10 @@ info:
     - it is available for production use after approval and adding to private beta
     - we might make breaking changes
 
-    If you would like to be involved in our beta programme, [contact us](https://digital.nhs.uk/developer/help-and-support).
+    #### Roadmap
+    To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/?order=popular&filter=allexceptdone&tag=covid-test-results-api#controls).
+
+    If you would like to be involved in our beta programme or have any other queries, [contact us](https://digital.nhs.uk/developer/help-and-support).
 
     ## Service level
     This API is a platinum service, meaning it is operational and supported 24 x 7 x 365.
