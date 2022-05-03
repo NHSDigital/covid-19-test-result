@@ -236,7 +236,7 @@ paths:
             example: ge2010-01-01&date=le2011-12-31
         - in: query
           name: code
-          description: The SNOMED code related to the observation type. It support a single value or comma seperated values (e.g. 871555000,871553007) [List of available codes](https://simplifier.net/guide/NHSDigital/Home/FHIRAssets/AllAssets/ObservationDefinition/ObservationDefinition.guide.md)
+          description: The SNOMED code related to the observation type. It supports a single value or comma separated values (for example 871555000,871553007) [List of available codes](https://simplifier.net/guide/NHSDigital/Home/FHIRAssets/AllAssets/ObservationDefinition?version=current)
           required: false
           schema:
             type: string
