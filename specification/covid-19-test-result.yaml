@@ -60,7 +60,7 @@ info:
     ## API status and roadmap    
 
     ### Status
-    This API is in private beta, meaning:
+    This API is in [private beta](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#api-status), meaning:
     - it is available for testing use
     - it is available for production use after approval and adding to private beta
     - we might make breaking changes
