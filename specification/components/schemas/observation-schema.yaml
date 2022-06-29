@@ -87,6 +87,7 @@ properties:
           enum: 
             - "pillar-1"
             - "pillar-2"
+            - "private"
         display:
           description: Description indicating Pillar1 data.
           type: string
@@ -94,6 +95,7 @@ properties:
           enum:
             - 'pillar 1'
             - 'pillar 2'
+            - 'private'
   code:
     description: "The category of test result. Describes COVID-19 detection method."
     type: object
