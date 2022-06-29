@@ -95,10 +95,9 @@ info:
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
 
     ## Security and authorisation
-      This API offers two access modes: User restricted &amp; Application restricted.
+    This API offers two access modes: User restricted &amp; Application restricted.
     
     ### User restricted
-    
     * [Guides and Documentation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis)
     * [Authentication and Authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation)
     * for user-restricted the end user must be a patient
@@ -106,7 +105,6 @@ info:
     * the NHS number in the request must match the NHS number in the NHS login account
     
     ### Application restricted
-    
     * [Guides and Documentation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis)
     * [Authentication and Authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis)
     * the calling application must strongly authenticate the end user using NHS login
