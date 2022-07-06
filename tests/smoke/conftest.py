@@ -250,6 +250,7 @@ async def get_token_nhs_login_token_exchange(test_app: ApigeeApiDeveloperApps,
             "client_assertion": client_assertion_jwt,
         },
     )
+    
     assert token_resp["status_code"] == 200
-    assert list(token_resp["body"].keys()) == ["access_token", "expires_in", "token_type", "issued_token_type"]
+    assert list(token_resp["body"].keys()) == ["access_token", "expires_in", "token_type", "issued_token_type", "refresh_token", "refresh_token_expires_in", "refresh_count"]
     return token_resp["body"]
