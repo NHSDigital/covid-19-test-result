@@ -8,7 +8,6 @@ newman/
 .DS_Store
 .#*
 smoketest-report.xml
-
 __pycache__/
 .envrc
 .idea/
