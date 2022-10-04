@@ -96,13 +96,11 @@ info:
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
 
     ## Security and authorisation
-    
     This API has two access modes: 
     * application-restricted access
     * user-restricted access
     
     ### Application-restricted access
-    
     This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
     
     To use this access mode, use the following security pattern:
