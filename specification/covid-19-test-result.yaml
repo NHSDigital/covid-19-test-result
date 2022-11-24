@@ -147,16 +147,16 @@ info:
     You need to get your software approved by us before it can go live with this API. We call this onboarding. The onboarding process can sometimes be quite long, so it’s worth planning well ahead.
     
     For further information on onboarding contact [api.management@nhs.net](mailto:api.management@nhs.net).
-    
-    ## Errors
 
+    ## Errors
     We use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:
 
-    `200` to `299` if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action
-    `400` to `499` if it failed because of a client error by your application
-    `500` to `599` if it failed because of an error on our server
+    * 200 to 299 if it succeeded, including code 202 if it was accepted by an API that needs to wait for further action
+    * 400 to 499 if it failed because of a client error by your application
+    * 500 to 599 if it failed because of an error on our server
     
-    Errors specific to each API are shown in the Endpoints section, under Response. See our [reference guide](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#http-status-codes) for more on errors.
+    Errors specific to each API are shown in the Endpoints section, under Response. See our [reference guide](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#http-status-codes) for more on errors.    
+
     
 servers:
   - url: 'https://sandbox.api.service.nhs.uk/covid-19-test-result/FHIR/R4'
