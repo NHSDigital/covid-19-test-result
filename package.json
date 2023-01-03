@@ -23,6 +23,6 @@
     "minimist": "^1.2.2",
     "newman": "^4.5.7",
     "newman-reporter-html": "^1.0.5",
-    "newman-reporter-htmlextra": "^1.20.3"
+    "newman-reporter-htmlextra": "^1.22.11"
   }
 }
