@@ -22,6 +22,8 @@ info:
 
     You get the following data:
     - COVID-19 test event details
+    
+    If you are using this API in [user-restricted access mode](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) the patient must have their identity verified to 'high' (P9) level. 
 
     ### Data availability, timing and quality
     All test records are verified to ensure the NHS number is correct before making them available via the API.
