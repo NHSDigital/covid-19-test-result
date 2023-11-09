@@ -148,7 +148,7 @@ info:
     ## Onboarding
     You need to get your software approved by us before it can go live with this API. We call this onboarding. The onboarding process can sometimes be quite long, so it’s worth planning well ahead.
     
-    For further information on onboarding contact [api.management@nhs.net](mailto:api.management@nhs.net).
+    For further information on onboarding contact [ssd.nationalservicedesk@nhs.net](mailto:ssd.nationalservicedesk@nhs.net).
 
     ## Errors
     We use standard HTTP status codes to show whether an API request succeeded or not. They are usually in the range:
