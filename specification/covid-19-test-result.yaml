@@ -23,7 +23,7 @@ info:
             </div>
             <div class="nhsd-m-emphasis-box__content-box">
             <p class="nhsd-t-heading-s nhsd-t-word-break" id="emphasis-emphasis-30709f1f" data-uipath="website.contentblock.emphasis.heading">Rate limits</p>
-                <div data-uipath="website.contentblock.emphasis.content" class="nhsd-t-word-break"><p class="nhsd-t-body">This API is in [production but deprecated](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses). It will be [retired](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses) on 11th Jan 2024.</p></div>            
+                <div data-uipath="website.contentblock.emphasis.content" class="nhsd-t-word-break"><p class="nhsd-t-body">This API is in [production but deprecated](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses). It will be [retired](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses) on 11th January 2024.</p></div>            
             </div>
         </div>
     </div>
