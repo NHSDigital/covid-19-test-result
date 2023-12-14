@@ -62,7 +62,7 @@ info:
 
     ## API status and roadmap    
 
-    This API is [deprecated](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses) and due to be retired on 11th Jan 2024.
+    This API is [deprecated](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses) and will be retired on 11th January 2024.
     
     To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/?order=popular&filter=allexceptdone&tag=covid-test-results-api#controls).
 
