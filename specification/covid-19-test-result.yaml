@@ -11,6 +11,23 @@ info:
     url: 'https://digital.nhs.uk/developer/help-and-support'
     email: api.management@nhs.net
   description: |
+
+    <div class="nhsd-m-emphasis-box nhsd-m-emphasis-box--emphasis nhsd-!t-margin-bottom-6" aria-label="Highlighted Information">
+        <div class="nhsd-a-box nhsd-a-box--border-blue">
+            <div class="nhsd-m-emphasis-box__image-box">
+                <figure class="nhsd-a-image">
+                    <picture class="nhsd-a-image__picture">
+                        <img src="http://digital.nhs.uk/binaries/content/gallery/icons/info.svg?colour=231f20" alt="" style="object-fit:fill">
+                    </picture>
+                </figure>
+            </div>
+            <div class="nhsd-m-emphasis-box__content-box">
+            <p class="nhsd-t-heading-s nhsd-t-word-break" id="emphasis-emphasis-30709f1f" data-uipath="website.contentblock.emphasis.heading"
+            <div data-uipath="website.contentblock.emphasis.content" class="nhsd-t-word-break"><p class="nhsd-t-body">This API is in <a href="https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses">production but deprecated</a>. It will be <a href="https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses">retired</a> on 11th January 2024. For more details, see <a href="https://digital.nhs.uk/developer/api-catalogue/gazetteer-service-soap#api-status">API status</a>.</p></div>            
+            </div>
+        </div>
+    </div> 
+  
     ## Overview
     Use this API to access a patient’s coronavirus (COVID-19) test results history.
 
@@ -45,11 +62,9 @@ info:
 
     ## API status and roadmap    
 
-    This API is [in production, beta](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses).
+    This API is [deprecated](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#statuses) and will be retired on 11th January 2024.
     
     To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/?order=popular&filter=allexceptdone&tag=covid-test-results-api#controls).
-
-    If you would like to be involved in our beta programme or have any other queries, [contact us](https://digital.nhs.uk/developer/help-and-support).
 
     ## Service level
     This API is a platinum service, meaning it is operational and supported 24 hours a day, 365 days a year.
