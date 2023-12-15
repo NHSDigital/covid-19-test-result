@@ -21,7 +21,7 @@
     "jest": "^26.6.3",
     "license-checker": "^25.0.1",
     "minimist": "^1.2.2",
-    "newman": "^4.5.7",
+    "newman": "^5.3.2",
     "newman-reporter-html": "^1.0.5",
     "newman-reporter-htmlextra": "^1.20.3"
   }
