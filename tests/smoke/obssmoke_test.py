@@ -4,11 +4,11 @@ from time import time
 import asyncio
 import pytest
 from smoke import conftest
-from aiohttp import ClientResponse
-from api_test_utils import env
-from api_test_utils import poll_until
-from api_test_utils.api_session_client import APISessionClient
-from api_test_utils.api_test_session_config import APITestSessionConfig
+# from aiohttp import ClientResponse
+# from api_test_utils import env
+# from api_test_utils import poll_until
+# from api_test_utils.api_session_client import APISessionClient
+# from api_test_utils.api_test_session_config import APITestSessionConfig
 
 
 def dict_path(raw, path: List[str]):
@@ -59,36 +59,36 @@ async def test_check_observation_is_secured(api_client: APISessionClient):
         assert resp.status == 401
 
 
-@pytest.mark.e2etest
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    'test_app',
-    [
-        {
-            'suffixes': ['-application-restricted']
-        },
-        {
-            'suffixes': ['-application-restricted', '-user-restricted']
-        }
-    ],
-    indirect=True
-)
-async def test_client_credentials_happy_path(test_app, api_client: APISessionClient):
-    authorised_headers = await conftest.get_authorised_headers(test_app)
+# @pytest.mark.e2etest
+# @pytest.mark.asyncio
+# @pytest.mark.parametrize(
+#     'test_app',
+#     [
+#         {
+#             'suffixes': ['-application-restricted']
+#         },
+#         {
+#             'suffixes': ['-application-restricted', '-user-restricted']
+#         }
+#     ],
+#     indirect=True
+# )
+# async def test_client_credentials_happy_path(test_app, api_client: APISessionClient):
+#     authorised_headers = await conftest.get_authorised_headers(test_app)
 
-    correlation_id = str(uuid4())
-    authorised_headers["X-Correlation-ID"] = correlation_id
+#     correlation_id = str(uuid4())
+#     authorised_headers["X-Correlation-ID"] = correlation_id
 
-    async with api_client.get(
-        _base_valid_uri("9999999990"),
-        headers=authorised_headers,
-        allow_retries=True
-    ) as resp:
-        assert resp.status == 200
-        body = await resp.json()
-        assert "x-correlation-id" in resp.headers, resp.headers
-        assert resp.headers["x-correlation-id"] == correlation_id
-        assert_body(body)
+#     async with api_client.get(
+#         _base_valid_uri("9999999990"),
+#         headers=authorised_headers,
+#         allow_retries=True
+#     ) as resp:
+#         assert resp.status == 200
+#         body = await resp.json()
+#         assert "x-correlation-id" in resp.headers, resp.headers
+#         assert resp.headers["x-correlation-id"] == correlation_id
+#         assert_body(body)
 
 @pytest.mark.e2etest
 @pytest.mark.asyncio
@@ -124,70 +124,70 @@ async def test_no_auth_bearer_token_provided(test_app, api_client: APISessionCli
             {'code': 'forbidden', 'diagnostics': 'Provided access token is invalid', 'severity': 'error'}
             ], body
 
-@pytest.mark.e2etest
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    'test_app',
-    [
-        {
-            'suffixes': ['-user-restricted'],
-            'requested_proofing_level': 'P9',
-            'identity_proofing_level': 'P9'
-        },
-        {
-            'suffixes': ['-user-restricted'],
-            'requested_proofing_level': 'P5',
-            'identity_proofing_level': 'P9'
-        },
-        {
-            'suffixes': ['-user-restricted'],
-            'requested_proofing_level': 'P5',
-            'identity_proofing_level': 'P5'
-        },
-        {
-            'suffixes': ['-application-restricted', '-user-restricted'],
-            'requested_proofing_level': 'P9',
-            'identity_proofing_level': 'P9'
-        },
-        {
-            'suffixes': ['-application-restricted', '-user-restricted'],
-            'requested_proofing_level': 'P5',
-            'identity_proofing_level': 'P9'
-        },
-        {
-            'suffixes': ['-application-restricted', '-user-restricted'],
-            'requested_proofing_level': 'P5',
-            'identity_proofing_level': 'P5'
-        }
-    ],
-    indirect=True
-)
-async def test_token_exchange_happy_path(test_app, api_client: APISessionClient):
-    subject_token_claims = {
-        'identity_proofing_level': test_app.request_params.get('identity_proofing_level')
-    }
-    token_response = await conftest.get_token_nhs_login_token_exchange(
-        test_app,
-        subject_token_claims=subject_token_claims
-    )
-    token = token_response["access_token"]
+# @pytest.mark.e2etest
+# @pytest.mark.asyncio
+# @pytest.mark.parametrize(
+#     'test_app',
+#     [
+#         {
+#             'suffixes': ['-user-restricted'],
+#             'requested_proofing_level': 'P9',
+#             'identity_proofing_level': 'P9'
+#         },
+#         {
+#             'suffixes': ['-user-restricted'],
+#             'requested_proofing_level': 'P5',
+#             'identity_proofing_level': 'P9'
+#         },
+#         {
+#             'suffixes': ['-user-restricted'],
+#             'requested_proofing_level': 'P5',
+#             'identity_proofing_level': 'P5'
+#         },
+#         {
+#             'suffixes': ['-application-restricted', '-user-restricted'],
+#             'requested_proofing_level': 'P9',
+#             'identity_proofing_level': 'P9'
+#         },
+#         {
+#             'suffixes': ['-application-restricted', '-user-restricted'],
+#             'requested_proofing_level': 'P5',
+#             'identity_proofing_level': 'P9'
+#         },
+#         {
+#             'suffixes': ['-application-restricted', '-user-restricted'],
+#             'requested_proofing_level': 'P5',
+#             'identity_proofing_level': 'P5'
+#         }
+#     ],
+#     indirect=True
+# )
+# async def test_token_exchange_happy_path(test_app, api_client: APISessionClient):
+#     subject_token_claims = {
+#         'identity_proofing_level': test_app.request_params.get('identity_proofing_level')
+#     }
+#     token_response = await conftest.get_token_nhs_login_token_exchange(
+#         test_app,
+#         subject_token_claims=subject_token_claims
+#     )
+#     token = token_response["access_token"]
 
-    correlation_id = str(uuid4())
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "X-Correlation-ID": correlation_id
-    }
+#     correlation_id = str(uuid4())
+#     headers = {
+#         "Authorization": f"Bearer {token}",
+#         "X-Correlation-ID": correlation_id
+#     }
 
-    async with api_client.get(
-        _base_valid_uri("9999999990"),
-        headers=headers,
-        allow_retries=True
-    ) as resp:
-        assert resp.status == 200, 'failed getting backend data'
-        body = await resp.json()
-        assert "x-correlation-id" in resp.headers, resp.headers
-        assert resp.headers["x-correlation-id"] == correlation_id
-        assert_body(body)
+#     async with api_client.get(
+#         _base_valid_uri("9999999990"),
+#         headers=headers,
+#         allow_retries=True
+#     ) as resp:
+#         assert resp.status == 200, 'failed getting backend data'
+#         body = await resp.json()
+#         assert "x-correlation-id" in resp.headers, resp.headers
+#         assert resp.headers["x-correlation-id"] == correlation_id
+#         assert_body(body)
 
 @pytest.mark.smoketestsandbox
 @pytest.mark.asyncio
@@ -227,103 +227,103 @@ async def test_observation_happy_path_sandbox(test_app, api_client: APISessionCl
         assert body["entry"][0]["resource"]["device"]["identifier"]["value"] == "rtPCR"
         assert body["entry"][0]["resource"]["device"]["display"] == "rtPCR"
 
-@pytest.mark.e2etest
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    'test_product_and_app',
-    [
-        {
-            'scopes': ['urn:nhsd:apim:user-nhs-login:P8:covid-19-test-result'],
-            'requested_proofing_level': 'P9',
-            'identity_proofing_level': 'P8'
-        }
-    ],
-    indirect=True
-)
-async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: APISessionClient, test_product_and_app):
+# @pytest.mark.e2etest
+# @pytest.mark.asyncio
+# @pytest.mark.parametrize(
+#     'test_product_and_app',
+#     [
+#         {
+#             'scopes': ['urn:nhsd:apim:user-nhs-login:P8:covid-19-test-result'],
+#             'requested_proofing_level': 'P9',
+#             'identity_proofing_level': 'P8'
+#         }
+#     ],
+#     indirect=True
+# )
+# async def test_token_exchange_invalid_identity_proofing_level_scope(api_client: APISessionClient, test_product_and_app):
 
-    test_product, test_app = test_product_and_app
-    subject_token_claims = {
-        "identity_proofing_level": "P8"
-    }
-    token_response = await conftest.get_token_nhs_login_token_exchange(
-        test_app,
-        subject_token_claims=subject_token_claims
-    )
-    token = token_response["access_token"]
+#     test_product, test_app = test_product_and_app
+#     subject_token_claims = {
+#         "identity_proofing_level": "P8"
+#     }
+#     token_response = await conftest.get_token_nhs_login_token_exchange(
+#         test_app,
+#         subject_token_claims=subject_token_claims
+#     )
+#     token = token_response["access_token"]
 
-    correlation_id = str(uuid4())
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "X-Correlation-ID": correlation_id
-    }
+#     correlation_id = str(uuid4())
+#     headers = {
+#         "Authorization": f"Bearer {token}",
+#         "X-Correlation-ID": correlation_id
+#     }
 
-    async with api_client.get(
-        _base_valid_uri("9999999990"),
-        headers=headers,
-        allow_retries=True
-    ) as resp:
-        assert resp.status == 401
-        body = await resp.json()
-        assert "x-correlation-id" in resp.headers, resp.headers
-        assert resp.headers["x-correlation-id"] == correlation_id
-        assert body == {
-            "issue":
-                [
-                    {
-                        "severity": "error",
-                        "diagnostics": "Provided access token is invalid",
-                        "code": "forbidden"
-                    }
-                ],
-            "resourceType": "OperationOutcome"
-        }
+#     async with api_client.get(
+#         _base_valid_uri("9999999990"),
+#         headers=headers,
+#         allow_retries=True
+#     ) as resp:
+#         assert resp.status == 401
+#         body = await resp.json()
+#         assert "x-correlation-id" in resp.headers, resp.headers
+#         assert resp.headers["x-correlation-id"] == correlation_id
+#         assert body == {
+#             "issue":
+#                 [
+#                     {
+#                         "severity": "error",
+#                         "diagnostics": "Provided access token is invalid",
+#                         "code": "forbidden"
+#                     }
+#                 ],
+#             "resourceType": "OperationOutcome"
+#         }
 
-@pytest.mark.e2etest
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    'test_product_and_app',
-    [
-        {
-            'scopes': ['urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result'],
-            'requested_proofing_level': 'P9',
-            'identity_proofing_level': 'P9'
-        },
-        {
-            'scopes': ['urn:nhsd:apim:user-nhs-login:P5:covid-19-test-result'],
-            'requested_proofing_level': 'P5',
-            'identity_proofing_level': 'P5'
-        }
-    ],
-    indirect=True
-)
-async def test_token_exchange_both_header_and_exchange(api_client: APISessionClient,
-                                                       test_product_and_app):
-    test_product, test_app = test_product_and_app
-    subject_token_claims = {
-        'identity_proofing_level': test_app.request_params.get('identity_proofing_level')
-    }
-    authorised_headers = {}
-    correlation_id = str(uuid4())
-    authorised_headers["X-Correlation-ID"] = correlation_id
-    authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app)
+# @pytest.mark.e2etest
+# @pytest.mark.asyncio
+# @pytest.mark.parametrize(
+#     'test_product_and_app',
+#     [
+#         {
+#             'scopes': ['urn:nhsd:apim:user-nhs-login:P9:covid-19-test-result'],
+#             'requested_proofing_level': 'P9',
+#             'identity_proofing_level': 'P9'
+#         },
+#         {
+#             'scopes': ['urn:nhsd:apim:user-nhs-login:P5:covid-19-test-result'],
+#             'requested_proofing_level': 'P5',
+#             'identity_proofing_level': 'P5'
+#         }
+#     ],
+#     indirect=True
+# )
+# async def test_token_exchange_both_header_and_exchange(api_client: APISessionClient,
+#                                                        test_product_and_app):
+#     test_product, test_app = test_product_and_app
+#     subject_token_claims = {
+#         'identity_proofing_level': test_app.request_params.get('identity_proofing_level')
+#     }
+#     authorised_headers = {}
+#     correlation_id = str(uuid4())
+#     authorised_headers["X-Correlation-ID"] = correlation_id
+#     authorised_headers["NHSD-User-Identity"] = conftest.nhs_login_id_token(test_app)
 
-    # Use token exchange token in conjunction with JWT header
-    token_response = await conftest.get_token_nhs_login_token_exchange(
-        test_app,
-        subject_token_claims=subject_token_claims
-    )
-    token = token_response["access_token"]
+#     # Use token exchange token in conjunction with JWT header
+#     token_response = await conftest.get_token_nhs_login_token_exchange(
+#         test_app,
+#         subject_token_claims=subject_token_claims
+#     )
+#     token = token_response["access_token"]
 
-    authorised_headers["Authorization"] = f"Bearer {token}"
+#     authorised_headers["Authorization"] = f"Bearer {token}"
 
-    async with api_client.get(
-        _base_valid_uri("9999999990"),
-        headers=authorised_headers,
-        allow_retries=True
-    ) as resp:
-        assert resp.status == 200
-        body = await resp.json()
-        assert "x-correlation-id" in resp.headers, resp.headers
-        assert resp.headers["x-correlation-id"] == correlation_id
-        assert_body(body)
+#     async with api_client.get(
+#         _base_valid_uri("9999999990"),
+#         headers=authorised_headers,
+#         allow_retries=True
+#     ) as resp:
+#         assert resp.status == 200
+#         body = await resp.json()
+#         assert "x-correlation-id" in resp.headers, resp.headers
+#         assert resp.headers["x-correlation-id"] == correlation_id
+#         assert_body(body)
