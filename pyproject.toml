@@ -16,7 +16,7 @@ authors = [
 readme = 'README.md'
 
 repository = "https://github.com/NHSDigital/covid-19-test-result"
-homepage = ""
+homepage = "https://github.com/NHSDigital/covid-19-test-result"
 
 keywords = ["healthcare", "uk", "nhs"] #TODO add additional keywords
 

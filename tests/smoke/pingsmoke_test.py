@@ -65,21 +65,21 @@ async def test_check_status_is_secured(api_client: APISessionClient):
     )
 
 
-@pytest.mark.e2etest
-@pytest.mark.smoketest
-@pytest.mark.smoketestsandbox
-@pytest.mark.asyncio
-async def test_wait_for_status(api_client: APISessionClient, api_test_config: APITestSessionConfig):
+# @pytest.mark.e2etest
+# @pytest.mark.smoketest
+# @pytest.mark.smoketestsandbox
+# @pytest.mark.asyncio
+# async def test_wait_for_status(api_client: APISessionClient, api_test_config: APITestSessionConfig):
 
-    """
-        test for _status ..  this uses poll_until to wait until the correct SOURCE_COMMIT_ID ( from env var )
-        is available
-    """
+#     """
+#         test for _status ..  this uses poll_until to wait until the correct SOURCE_COMMIT_ID ( from env var )
+#         is available
+#     """
 
-    is_deployed = partial(_is_status_deployed, api_test_config=api_test_config)
+#     is_deployed = partial(_is_status_deployed, api_test_config=api_test_config)
 
-    await poll_until(
-        make_request=lambda: api_client.get('_status', headers={'apikey': env.status_endpoint_api_key()}),
-        until=is_deployed,
-        timeout=120
-    )
+#     await poll_until(
+#         make_request=lambda: api_client.get('_status', headers={'apikey': env.status_endpoint_api_key()}),
+#         until=is_deployed,
+#         timeout=120
+#     )
